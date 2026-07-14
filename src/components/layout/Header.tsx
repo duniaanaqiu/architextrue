@@ -66,8 +66,8 @@ export function Header() {
         <Button
           variant={isScrolled ? "default" : "outline"}
           className={`hidden md:inline-flex font-label-md text-label-md px-6 py-3 rounded-lg transition-all ${isScrolled
-              ? "bg-primary text-on-primary ambient-shadow-1 hover:bg-primary-container"
-              : "border-[1.5px] border-on-primary text-on-primary hover:bg-on-primary/10 backdrop-blur-sm"
+            ? "bg-primary text-on-primary ambient-shadow-1 hover:bg-primary-container"
+            : "border-[1.5px] border-on-primary text-on-primary hover:bg-on-primary/10 backdrop-blur-sm"
             }`}
           asChild
         >
