@@ -1,36 +1,119 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ARCHITEXTRUE - Construction Company Website
+
+A production-ready Next.js 16 website for ARCHITEXTRUE, a premium residential construction company based in Yogyakarta, Indonesia.
+
+## Features
+
+- **Modern Tech Stack**: Next.js 16, React 19, TypeScript, Tailwind CSS v4
+- **SEO Optimized**: Complete SEO infrastructure with metadata, sitemap, robots.txt, Open Graph, and Twitter Cards
+- **Production Ready**: Prisma ORM with Neon PostgreSQL, UploadThing for file uploads, Auth.js for authentication
+- **Bilingual Navigation**: English navigation labels with Indonesian content
+- **Design System**: Complete design system implementation from Stitch AI export
+- **Performance**: Optimized for Core Web Vitals with static generation and image optimization
+- **Accessibility**: WCAG compliant with semantic HTML and proper ARIA attributes
+
+## Project Structure
+
+```
+architextrue/
+├── src/
+│   ├── app/                 # Next.js App Router pages
+│   ├── components/          # React components
+│   │   ├── ui/             # shadcn/ui components
+│   │   ├── layout/         # Layout components
+│   │   ├── shared/         # Shared UI components
+│   │   └── sections/       # Page sections
+│   ├── config/             # App configuration
+│   ├── lib/                # Utility libraries
+│   ├── hooks/              # Custom React hooks
+│   ├── types/              # TypeScript types
+│   ├── styles/             # Global styles
+│   └── prisma/             # Database schema
+├── public/                 # Static assets
+└── package.json
+```
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+- Node.js 18+ 
+- npm or yarn
+- PostgreSQL database (Neon PostgreSQL recommended)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+### Installation
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+1. Clone the repository
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. Set up environment variables:
+   ```bash
+   cp .env.example .env.local
+   ```
+   Update the `.env.local` file with your database credentials and API keys.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+4. Set up the database:
+   ```bash
+   npx prisma db push
+   ```
 
-## Learn More
+5. Run the development server:
+   ```bash
+   npm run dev
+   ```
 
-To learn more about Next.js, take a look at the following resources:
+6. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Development
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm start` - Start production server
+- `npm run lint` - Run ESLint
 
-## Deploy on Vercel
+## SEO Features
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- Dynamic metadata generation
+- Structured data (Schema.org) for Organization, LocalBusiness, Service, etc.
+- Automatic sitemap generation
+- Open Graph and Twitter Card images
+- Robots.txt configuration
+- Web app manifest for PWA
+- Canonical URL management
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Database Schema
+
+The application uses Prisma ORM with PostgreSQL. Key models include:
+
+- **User**: Authentication and user management
+- **Post**: Blog posts with categories, tags, and SEO metadata
+- **Portfolio**: Construction project portfolio with images and testimonials
+- **Service**: Construction services with features and process steps
+- **FAQ**: Frequently asked questions by category
+- **Testimonial**: Client testimonials with ratings
+- **ContactLead**: Contact form submissions
+- **SiteSetting**: Configurable site settings
+
+## Deployment
+
+The application is configured for deployment on Vercel:
+
+1. Push your code to GitHub
+2. Connect your repository to Vercel
+3. Configure environment variables
+4. Deploy!
+
+## Design System
+
+The design system is based on the Stitch AI export with:
+
+- **Colors**: Professional construction palette with navy blue, warm gold accents
+- **Typography**: Playfair Display for headlines, Inter for body text
+- **Spacing**: 8px base unit with generous section gaps
+- **Components**: Reusable UI components following the design system specifications
+
+## License
+
+Proprietary - All rights reserved by ARCHITEXTRUE

@@ -1,0 +1,1 @@
+export const WHATSAPP_NUMBER = process.env.WHATSAPP_NUMBER || "6281210004453";

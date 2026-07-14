@@ -1,0 +1,204 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  name          String?
+  image         String?
+  role          Role      @default(USER)
+  posts         Post[]
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  @@map("users")
+}
+
+model Post {
+  id              String     @id @default(cuid())
+  slug            String     @unique
+  title           String
+  excerpt         String
+  content         String
+  featuredImage   String?    // UploadThing URL
+  images          String[]   // Gallery images
+  author          User       @relation(fields: [authorId], references: [id])
+  authorId        String
+  categories      Category[]
+  tags            Tag[]
+  isPublished     Boolean    @default(false)
+  isFeatured      Boolean    @default(false)
+  readingTime     Int        // in minutes
+  seoTitle        String?
+  seoDescription  String?
+  faqs            FAQ[]
+  relatedPosts    Post[]     @relation("PostRelations")
+  relatedPostsInverse Post[] @relation("PostRelations")
+  viewCount       Int        @default(0)
+  publishedAt     DateTime?
+  createdAt       DateTime   @default(now())
+  updatedAt       DateTime   @updatedAt
+
+  @@map("posts")
+}
+
+model Category {
+  id        String   @id @default(cuid())
+  name      String
+  slug      String   @unique
+  posts     Post[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("categories")
+}
+
+model Tag {
+  id        String   @id @default(cuid())
+  name      String
+  slug      String   @unique
+  posts     Post[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("tags")
+}
+
+model Portfolio {
+  id          String     @id @default(cuid())
+  title       String
+  slug        String     @unique
+  description String
+  images      String[]   // UploadThing URLs
+  location    String     // Yogyakarta specific
+  serviceType ServiceType
+  service     Service?   @relation(fields: [serviceId], references: [id])
+  serviceId   String?
+  area        Int        // in m²
+  duration    String     // e.g., "6 bulan"
+  completedAt DateTime
+  testimonial Testimonial?
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+
+  @@map("portfolio")
+}
+
+model Service {
+  id          String     @id @default(cuid())
+  name        String
+  slug        String     @unique
+  description String
+  icon        String?    // Lucide icon name
+  features    String[]
+  process     ProcessStep[]
+  portfolio   Portfolio[]
+  faqs        FAQ[]
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+
+  @@map("services")
+}
+
+model ProcessStep {
+  id          String   @id @default(cuid())
+  service     Service  @relation(fields: [serviceId], references: [id])
+  serviceId   String
+  stepNumber  Int
+  title       String
+  description String
+  icon        String?  // Lucide icon name
+  duration    String?  // e.g., "2-4 minggu"
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("process_steps")
+}
+
+model FAQ {
+  id        String   @id @default(cuid())
+  question  String
+  answer    String
+  category  FAQCategory
+  service   Service? @relation(fields: [serviceId], references: [id])
+  serviceId String?
+  post      Post?    @relation(fields: [postId], references: [id])
+  postId    String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("faqs")
+}
+
+model Testimonial {
+  id         String    @id @default(cuid())
+  name       String
+  role       String    // e.g., "Pemilik Rumah"
+  content    String
+  image      String?   // UploadThing URL
+  rating     Int       @default(5) // 1-5 stars
+  portfolio  Portfolio? @relation(fields: [portfolioId], references: [id])
+  portfolioId String?   @unique
+  isFeatured Boolean   @default(false)
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+
+  @@map("testimonials")
+}
+
+model ContactLead {
+  id        String    @id @default(cuid())
+  name      String
+  email     String
+  phone     String?
+  service   String?   // Service interested in
+  message   String
+  status    LeadStatus @default(NEW)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  @@map("contact_leads")
+}
+
+model SiteSetting {
+  id          String   @id @default(cuid())
+  key         String   @unique
+  value       String
+  description String?
+  updatedAt   DateTime @updatedAt
+
+  @@map("site_settings")
+}
+
+enum Role {
+  USER
+  EDITOR
+  ADMIN
+}
+
+enum ServiceType {
+  JASA_BANGUN_RUMAH
+  JASA_RENOVASI_RUMAH
+}
+
+enum FAQCategory {
+  GENERAL
+  CONSTRUCTION
+  RENOVATION
+  BUDGET
+  TIMELINE
+  MATERIALS
+}
+
+enum LeadStatus {
+  NEW
+  CONTACTED
+  QUOTED
+  CONVERTED
+  ARCHIVED
+}
