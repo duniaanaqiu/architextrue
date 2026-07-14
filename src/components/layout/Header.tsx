@@ -38,7 +38,7 @@ export function Header() {
       <div className="flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop py-4 container-max mx-auto">
         {/* Logo */}
         <Link href="/" className="flex items-center">
-          <Image 
+          <Image
             src={isScrolled ? "/assets/images/layout/logo-primary.png" : "/assets/images/layout/logo-white.png"}
             alt="ARCHITEXTRUE Logo"
             width={240}
@@ -54,9 +54,8 @@ export function Header() {
             <Link
               key={item.href}
               href={item.href}
-              className={`font-label-md text-label-md transition-colors ${
-                isScrolled ? "text-secondary hover:text-tertiary" : "text-on-primary hover:text-white/80 drop-shadow-md"
-              }`}
+              className={`font-label-md text-label-md transition-colors ${isScrolled ? "text-secondary hover:text-tertiary" : "text-on-primary hover:text-white/80 drop-shadow-md"
+                }`}
             >
               {item.label}
             </Link>
@@ -64,13 +63,12 @@ export function Header() {
         </nav>
 
         {/* Desktop CTA Button */}
-        <Button 
+        <Button
           variant={isScrolled ? "default" : "outline"}
-          className={`hidden md:inline-flex font-label-md text-label-md px-6 py-3 rounded-lg transition-all ${
-            isScrolled 
-              ? "bg-primary text-on-primary ambient-shadow-1 hover:bg-primary-container" 
+          className={`hidden md:inline-flex font-label-md text-label-md px-6 py-3 rounded-lg transition-all ${isScrolled
+              ? "bg-primary text-on-primary ambient-shadow-1 hover:bg-primary-container"
               : "border-[1.5px] border-on-primary text-on-primary hover:bg-on-primary/10 backdrop-blur-sm"
-          }`}
+            }`}
           asChild
         >
           <Link href={`https://wa.me/${WHATSAPP_NUMBER}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
@@ -107,8 +105,8 @@ export function Header() {
                 {item.label}
               </Link>
             ))}
-            <Button 
-              variant="default" 
+            <Button
+              variant="default"
               className="mt-2 bg-primary text-on-primary font-label-md text-label-md py-3 rounded-lg ambient-shadow-1 hover:bg-primary-container transition-all"
               asChild
             >
