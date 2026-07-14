@@ -111,7 +111,7 @@ export default function RootLayout({
           href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Source+Sans+3:wght@400;500;600&display=swap"
           rel="stylesheet"
         />
-        
+
         {/* Material Symbols for icons */}
         <link
           rel="stylesheet"
