@@ -67,7 +67,7 @@ export function generateLocalBusinessSchema() {
     "image": "https://architextrue.com/logo.png",
     "@id": "https://architextrue.com",
     "url": "https://architextrue.com",
-    "telephone": "+62 812 3456 7890",
+    "telephone": "+62 812 1000 4453",
     "address": {
       "@type": "PostalAddress",
       "streetAddress": "Jl. Kaliurang KM 8",

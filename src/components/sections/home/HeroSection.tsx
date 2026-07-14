@@ -1,75 +1,86 @@
 "use client";
 
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { ChevronRight } from "lucide-react";
 import Link from "next/link";
+import { WHATSAPP_NUMBER } from "@/config/company";
 
 export function HeroSection() {
   return (
-    <section className="relative w-full h-[80vh] min-h-[600px] flex items-center justify-center pt-20 mb-section-gap">
+    <section className="relative w-full min-h-screen flex items-center justify-center pt-24 pb-20">
       {/* Background Image with Overlay */}
       <div className="absolute inset-0 z-0">
-        <div className="bg-cover bg-center w-full h-full bg-[url('https://lh3.googleusercontent.com/aida-public/AB6AXuAAw_n3PyggfoncFJq36EKrcq69FIJJIEcaMS6TrSjec96eyJlby5fjWdw1yn6KgsnBd8TSNE7sGRagXP3Uip8mFhJqFMhs9AHP1rO9sjrVob7S5pmr9C8O8e6ntLXMogKfL6I4kp7WwB-q4Fc7TJQvTRAITLQkvIqhtWch30EfIO1O0Px5VyDu1YRfOSEYHgaHFKXVIfoaZIhle5EWj_udVnFcCV6yEg3IvQALJEi63D8OWvVFxS5jyg')]">
+        <div className="bg-cover bg-center w-full h-full bg-[url('/assets/images/home/bg-hero-home.jpg')]">
           {/* Image alt text for accessibility */}
           <span className="sr-only">
             A breathtaking, wide-angle architectural photograph of a luxurious modern tropical home in Indonesia during golden hour. The design features expansive glass walls, natural timber cladding, and a sleek flat roof, blending seamlessly with lush tropical landscaping.
           </span>
         </div>
         <div className="absolute inset-0 bg-primary/40 mix-blend-multiply"></div>
-        <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent"></div>
+        <div className="absolute bottom-0 w-full h-32 md:h-48 bg-gradient-to-t from-background from-15% via-background/60 via-50% to-transparent"></div>
       </div>
 
       {/* Content */}
-      <div className="relative z-10 w-full container-max mx-auto px-margin-mobile md:px-margin-desktop text-center md:text-left flex flex-col md:w-2/3 lg:w-1/2 md:mr-auto">
-        <h1 className="font-display-lg-mobile text-display-lg-mobile md:font-display-lg md:text-display-lg text-on-primary mb-stack-md drop-shadow-lg">
-          Bangun Hunian Impian Anda di Yogyakarta Bersama Ahlinya
-        </h1>
+      <div className="relative z-10 w-full container-max mx-auto px-margin-mobile md:px-margin-desktop flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-8">
         
-        <p className="font-body-lg text-body-lg text-surface-container-low mb-stack-lg drop-shadow-md">
-          Kontraktor spesialis rumah mewah dengan kualitas pengerjaan terbaik dan transparan.
-        </p>
-
-        {/* CTA Buttons */}
-        <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
-          <Button 
-            variant="tertiary" 
-            className="px-8 py-4 rounded-lg ambient-shadow-2 text-center"
-            size="lg"
-            asChild
-          >
-            <Link href="/contact">
-              Konsultasi Gratis
-            </Link>
-          </Button>
+        {/* Left Column: Text & CTA */}
+        <div className="w-full lg:w-1/2 flex flex-col text-center lg:text-left">
+          <h1 className="font-display-lg-mobile text-display-lg-mobile md:font-display-lg md:text-display-lg leading-tight md:leading-tight text-on-primary mb-stack-md drop-shadow-lg">
+            Bangun Hunian Impian Anda di Yogyakarta Bersama Ahlinya
+          </h1>
           
-          <Button 
-            variant="outline" 
-            className="border-[1.5px] border-on-primary text-on-primary px-8 py-4 rounded-lg hover:bg-on-primary/10 text-center backdrop-blur-sm"
-            size="lg"
-            asChild
-          >
-            <Link href="/portfolio">
-              Lihat Portfolio
-              <ChevronRight className="ml-2 h-4 w-4" />
-            </Link>
-          </Button>
+          <p className="font-body-lg text-body-lg text-surface-container-low mb-stack-lg drop-shadow-md">
+            Kontraktor spesialis rumah mewah dengan kualitas pengerjaan terbaik dan transparan.
+          </p>
+
+          {/* CTA Buttons */}
+          <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+            <Button 
+              variant="tertiary" 
+              className="px-8 py-4 rounded-lg ambient-shadow-2 text-center"
+              size="lg"
+              asChild
+            >
+              <Link href={`https://wa.me/${WHATSAPP_NUMBER}`} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2">
+                <Image src="/assets/images/layout/wa.svg" alt="WhatsApp" width={24} height={24} />
+                Konsultasi Gratis
+              </Link>
+            </Button>
+            
+            <Button 
+              variant="outline" 
+              className="border-[1.5px] border-on-primary text-on-primary px-8 py-4 rounded-lg hover:bg-on-primary/10 text-center backdrop-blur-sm"
+              size="lg"
+              asChild
+            >
+              <Link href="/portfolio">
+                Lihat Portfolio
+                <ChevronRight className="ml-2 h-4 w-4" />
+              </Link>
+            </Button>
+          </div>
         </div>
 
-        {/* Trust indicators */}
-        <div className="mt-12 flex flex-wrap justify-center md:justify-start gap-8">
-          <div className="text-center">
-            <div className="text-3xl font-bold text-on-primary">50+</div>
-            <div className="text-sm text-surface-container-low mt-1">Proyek Selesai</div>
-          </div>
-          <div className="text-center">
-            <div className="text-3xl font-bold text-on-primary">15+</div>
-            <div className="text-sm text-surface-container-low mt-1">Tahun Pengalaman</div>
-          </div>
-          <div className="text-center">
-            <div className="text-3xl font-bold text-on-primary">100%</div>
-            <div className="text-sm text-surface-container-low mt-1">Klien Puas</div>
+        {/* Right Column: Trust Indicators Grid */}
+        <div className="w-full lg:w-1/2 flex justify-center lg:justify-end mt-8 lg:mt-0">
+          <div className="grid grid-cols-2 gap-4 w-full max-w-md">
+            <div className="text-center bg-white/5 backdrop-blur-md border border-white/20 px-4 py-6 rounded-2xl ambient-shadow-lg flex flex-col justify-center transition-transform hover:-translate-y-1 hover:bg-white/10">
+              <div className="text-4xl font-bold text-on-primary drop-shadow-md">50+</div>
+              <div className="text-sm text-on-primary/90 mt-2 font-medium">Proyek Selesai</div>
+            </div>
+            <div className="text-center bg-white/5 backdrop-blur-md border border-white/20 px-4 py-6 rounded-2xl ambient-shadow-lg flex flex-col justify-center transition-transform hover:-translate-y-1 hover:bg-white/10">
+              <div className="text-4xl font-bold text-on-primary drop-shadow-md">15+</div>
+              <div className="text-sm text-on-primary/90 mt-2 font-medium">Tahun Pengalaman</div>
+            </div>
+            {/* The 3rd indicator spans 2 columns */}
+            <div className="col-span-2 text-center bg-white/5 backdrop-blur-md border border-white/20 px-6 py-6 rounded-2xl ambient-shadow-lg flex flex-col sm:flex-row items-center justify-center gap-3 transition-transform hover:-translate-y-1 hover:bg-white/10">
+              <div className="text-4xl font-bold text-on-primary drop-shadow-md">100%</div>
+              <div className="text-sm sm:text-base text-on-primary/90 font-medium text-center sm:text-left">Klien Puas dengan Hasil Karya Kami</div>
+            </div>
           </div>
         </div>
+
       </div>
 
       {/* Scroll indicator */}

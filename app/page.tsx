@@ -62,7 +62,7 @@ export default function HomePage() {
         "name": "Bagaimana cara konsultasi dengan ARCHITEXTRUE?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Anda dapat menghubungi kami melalui WhatsApp di +62 812 3456 7890 atau mengisi formulir konsultasi gratis di website kami."
+          "text": "Anda dapat menghubungi kami melalui WhatsApp di +62 812 1000 4453 atau mengisi formulir konsultasi gratis di website kami."
         }
       },
     ],

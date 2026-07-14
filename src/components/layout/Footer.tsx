@@ -1,6 +1,8 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Phone, Mail, MapPin } from "lucide-react";
+import { WHATSAPP_NUMBER } from "@/config/company";
 
 interface FooterLink {
   href: string;
@@ -12,81 +14,76 @@ const footerLinks = {
     { href: "/services/jasa-bangun-rumah", label: "Jasa Bangun Rumah" },
     { href: "/services/jasa-renovasi-rumah", label: "Jasa Renovasi Rumah" },
   ],
-  legal: [
-    { href: "/privacy", label: "Kebijakan Privasi" },
-    { href: "/terms", label: "Syarat & Ketentuan" },
-  ],
   company: [
-    { href: "/about", label: "Tentang Kami" },
+    { href: "/about", label: "About Us" },
     { href: "/portfolio", label: "Portfolio" },
     { href: "/blog", label: "Blog" },
-    { href: "/contact", label: "Kontak" },
   ],
 };
 
 const contactInfo = {
   address: "Jl. Kaliurang KM 8, Yogyakarta",
   email: "info@architextrue.com",
-  phone: "+62 812 3456 7890",
-  whatsapp: "+62 812 3456 7890",
+  phone: "+62 812 1000 4453",
+  whatsapp: WHATSAPP_NUMBER,
 };
 
 export function Footer() {
   return (
     <footer className="bg-primary text-on-primary w-full mt-auto">
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-gutter px-margin-mobile md:px-margin-desktop py-section-gap container-max mx-auto">
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12 px-margin-mobile md:px-margin-desktop py-section-gap container-max mx-auto">
         {/* Brand Section */}
-        <div className="md:col-span-1 flex flex-col items-start">
-          <span className="font-headline-lg text-headline-lg text-tertiary-fixed mb-stack-md">
-            ARCHITEXTRUE
-          </span>
+        <div className="md:col-span-5 lg:col-span-5 flex flex-col items-start pr-0 lg:pr-12">
+          <Link href="/">
+            <Image
+              src="/assets/images/layout/logo-white.png"
+              alt="ARCHITEXTRUE Logo"
+              width={240}
+              height={60}
+              className="h-8 md:h-10 w-auto object-contain mb-stack-md cursor-pointer hover:opacity-90 transition-opacity"
+            />
+          </Link>
           <p className="font-body-md text-body-md text-primary-fixed-dim mt-4">
-            Yogyakarta. Konstruksi Hunian Mewah & Terpercaya.
+            Spesialis jasa bangun dan renovasi rumah mewah area Yogyakarta dan sekitarnya. Kualitas pengerjaan terbaik dan transparan.
           </p>
-          
-          {/* WhatsApp CTA */}
-          <Button
-            variant="outline"
-            className="mt-6 border-tertiary-fixed text-tertiary-fixed hover:bg-tertiary-fixed hover:text-on-tertiary-fixed"
-            asChild
-          >
-            <Link 
-              href={`https://wa.me/${contactInfo.whatsapp.replace(/\D/g, '')}`}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <Phone className="mr-2 h-4 w-4" />
-              Chat via WhatsApp
+
+          {/* Social Links */}
+          <div className="flex items-center gap-4 mt-6">
+            <Link href="https://www.tiktok.com/@architextrue" target="_blank" rel="noopener noreferrer">
+              <Image src="/assets/images/layout/tiktok-white.svg" alt="TikTok" width={24} height={24} className="hover:opacity-80 transition-opacity" />
             </Link>
-          </Button>
+            <Link href="https://www.instagram.com/architextrue_" target="_blank" rel="noopener noreferrer">
+              <Image src="/assets/images/layout/instagram-white.svg" alt="Instagram" width={24} height={24} className="hover:opacity-80 transition-opacity" />
+            </Link>
+          </div>
         </div>
 
         {/* Services Links */}
-        <div className="md:col-span-1 flex flex-col gap-3">
-          <span className="font-label-md text-label-md text-tertiary-fixed font-bold mb-2">
-            Layanan
+        <div className="md:col-span-2 lg:col-span-2 flex flex-col gap-3">
+          <span className="font-label-md text-label-md text-white font-bold mb-2">
+            Services
           </span>
           {footerLinks.services.map((link) => (
             <Link
               key={link.href}
               href={link.href}
-              className="font-body-md text-body-md text-primary-fixed-dim hover:text-white hover:text-tertiary-fixed-dim transition-all opacity-80 hover:opacity-100"
+              className="font-body-md text-body-md text-primary-fixed-dim hover:text-white transition-all opacity-80 hover:opacity-100"
             >
               {link.label}
             </Link>
           ))}
         </div>
 
-        {/* Legal Links */}
-        <div className="md:col-span-1 flex flex-col gap-3">
-          <span className="font-label-md text-label-md text-tertiary-fixed font-bold mb-2">
-            Legal
+        {/* Company Links */}
+        <div className="md:col-span-2 lg:col-span-2 flex flex-col gap-3">
+          <span className="font-label-md text-label-md text-white font-bold mb-2">
+            Company
           </span>
-          {footerLinks.legal.map((link) => (
+          {footerLinks.company.map((link) => (
             <Link
               key={link.href}
               href={link.href}
-              className="font-body-md text-body-md text-primary-fixed-dim hover:text-white hover:text-tertiary-fixed-dim transition-all opacity-80 hover:opacity-100"
+              className="font-body-md text-body-md text-primary-fixed-dim hover:text-white transition-all opacity-80 hover:opacity-100"
             >
               {link.label}
             </Link>
@@ -94,19 +91,19 @@ export function Footer() {
         </div>
 
         {/* Contact Information */}
-        <div className="md:col-span-1 flex flex-col gap-3">
-          <span className="font-label-md text-label-md text-tertiary-fixed font-bold mb-2">
-            Kontak
+        <div className="md:col-span-3 lg:col-span-3 flex flex-col gap-3">
+          <span className="font-label-md text-label-md text-white font-bold mb-2">
+            Contact Us
           </span>
           <div className="space-y-3">
             <div className="flex items-start gap-2">
-              <MapPin className="h-5 w-5 text-tertiary-fixed-dim mt-0.5 flex-shrink-0" />
+              <MapPin className="h-5 w-5 text-white mt-0.5 flex-shrink-0" />
               <p className="font-body-md text-body-md text-primary-fixed-dim opacity-80">
                 {contactInfo.address}
               </p>
             </div>
             <div className="flex items-center gap-2">
-              <Mail className="h-5 w-5 text-tertiary-fixed-dim flex-shrink-0" />
+              <Mail className="h-5 w-5 text-white flex-shrink-0" />
               <Link
                 href={`mailto:${contactInfo.email}`}
                 className="font-body-md text-body-md text-primary-fixed-dim opacity-80 hover:text-white hover:opacity-100"
@@ -115,9 +112,11 @@ export function Footer() {
               </Link>
             </div>
             <div className="flex items-center gap-2">
-              <Phone className="h-5 w-5 text-tertiary-fixed-dim flex-shrink-0" />
+              <Phone className="h-5 w-5 text-white flex-shrink-0" />
               <Link
-                href={`tel:${contactInfo.phone}`}
+                href={`https://wa.me/${WHATSAPP_NUMBER}`}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="font-body-md text-body-md text-primary-fixed-dim opacity-80 hover:text-white hover:opacity-100"
               >
                 {contactInfo.phone}
@@ -132,18 +131,16 @@ export function Footer() {
         <div className="px-margin-mobile md:px-margin-desktop py-6 container-max mx-auto">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="font-body-md text-body-md text-primary-fixed-dim opacity-80 text-center md:text-left">
-              © {new Date().getFullYear()} ARCHITEXTRUE Yogyakarta. Konstruksi Hunian Mewah & Terpercaya.
+              © {new Date().getFullYear()} ARCHITEXTRUE. All rights reserved.
             </p>
-            
-            {/* Structured Data Attribution */}
-            <div className="text-xs text-primary-fixed-dim opacity-60">
-              <Link 
-                href="https://schema.org/ConstructionBusiness" 
-                className="hover:text-tertiary-fixed-dim"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                ConstructionBusiness Schema
+
+            {/* Legal Links */}
+            <div className="text-xs text-primary-fixed-dim opacity-60 flex gap-4">
+              <Link href="/privacy" className="hover:text-white transition-colors">
+                Privacy Policy
+              </Link>
+              <Link href="/terms" className="hover:text-white transition-colors">
+                Terms of Service
               </Link>
             </div>
           </div>
@@ -155,10 +152,10 @@ export function Footer() {
         href={`https://wa.me/${contactInfo.whatsapp.replace(/\D/g, '')}`}
         target="_blank"
         rel="noopener noreferrer"
-        className="fixed bottom-8 right-8 bg-[#25D366] text-white p-4 rounded-full ambient-shadow-2 hover:scale-105 transition-transform z-50 flex items-center justify-center"
+        className="fixed bottom-8 right-8 bg-[#25D366] text-white p-3 md:p-4 rounded-full ambient-shadow-2 hover:scale-105 transition-transform z-50 flex items-center justify-center"
         aria-label="Chat di WhatsApp"
       >
-        <Phone className="h-6 w-6" />
+        <Image src="/assets/images/layout/wa.svg" alt="WhatsApp" width={28} height={28} className="w-8 h-8 md:w-10 md:h-10" />
       </Link>
     </footer>
   );

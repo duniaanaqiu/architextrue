@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Playfair_Display } from "next/font/google";
+import { Source_Sans_3, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
@@ -12,7 +12,7 @@ const playfairDisplay = Playfair_Display({
   weight: ["400", "500", "600", "700"],
 });
 
-const inter = Inter({
+const sourceSans3 = Source_Sans_3({
   subsets: ["latin"],
   variable: "--font-body",
   weight: ["400", "500", "600"],
@@ -73,12 +73,10 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: "/favicon.ico" },
-      { url: "/icon-192.png", type: "image/png", sizes: "192x192" },
-      { url: "/icon-512.png", type: "image/png", sizes: "512x512" },
+      { url: "/assets/images/layout/favicon.png", type: "image/png" },
     ],
     apple: [
-      { url: "/apple-icon.png" },
+      { url: "/assets/images/layout/favicon.png", type: "image/png" },
     ],
   },
   manifest: `${BASE_URL}/manifest.json`,
@@ -96,7 +94,7 @@ export default function RootLayout({
   return (
     <html
       lang="id"
-      className={`${playfairDisplay.variable} ${inter.variable} h-full antialiased`}
+      className={`${playfairDisplay.variable} ${sourceSans3.variable} h-full antialiased`}
     >
       <head>
         {/* Font preloads */}
@@ -110,7 +108,7 @@ export default function RootLayout({
           crossOrigin="anonymous"
         />
         <link
-          href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Source+Sans+3:wght@400;500;600&display=swap"
           rel="stylesheet"
         />
         

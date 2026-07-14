@@ -12,7 +12,7 @@ const services = [
     id: "jasa-bangun-rumah",
     title: "Jasa Bangun Rumah",
     description: "Mewujudkan desain impian menjadi struktur nyata dengan pengawasan ketat, material premium, dan timeline yang terukur.",
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuAzzbTRD0sJn7YNshfkt9I3pfHlDs1GGKZh8UuTKDMiml3CKpLNxN9yGw_C_YdOCBGI71fisvlp_LgsvBlP2Br1tKQOXr105_8okVaG82Gmmz0HTdImwLnXMooNjBfnvnctVUVL10OCY_hbL8J7xuYQxWn_w-TO2919IjIGuDDEU2rG87a6wmp68A-vfsJDyI72JUh4p3jst-TdjeI4Hz9KOoFTnnuH0268ec_JzDsuj7FgK8WygJRtdA",
+    image: "/assets/images/home/services1.jpg",
     imageAlt: "A bright, airy construction site of a modern luxury villa in its framing stage. Concrete pillars and clean wooden formwork stand strong against a clear blue sky. The image uses a high-key, light-mode palette with crisp contrasts, emphasizing structural integrity and orderly construction processes.",
     features: [
       "Perencanaan Terintegrasi",
@@ -26,7 +26,7 @@ const services = [
     id: "jasa-renovasi-rumah",
     title: "Jasa Renovasi Rumah",
     description: "Transformasi cerdas untuk menyegarkan tampilan dan fungsi hunian lama Anda menjadi mahakarya modern yang bernilai tinggi.",
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuC9u6fnMLkyqFIMXcSCvELHhCGjulJ5Ui1Yp_WU3CajE5lEjIfF5Xv9GvFZkaNG-OD69EkTZkzIx1s3rYU3MyI6ghotWuoYz5FeI2hVhBZHyNoOymEyd8P2e2dbCJ_3-4z2tO34TzNpdZEfAf7vRgPsciLwl1poSay2GdetfD8UbPA1ozgTtBqJ2AIBJ8iaJn7aqnPZ4Vou-N0NREa2pXr47ClGujN-V2pynhML8ld86-VX15HoIRe1KA",
+    image: "/assets/images/home/services2.jpg",
     imageAlt: "A beautifully renovated interior space transitioning from old to new. A sleek, modern minimalist living area with polished concrete floors and warm wood accents, bathed in soft, natural light from expansive windows. The light-mode aesthetic highlights the seamless integration of high-end materials and refined craftsmanship.",
     features: [
       "Audit Struktur Awal",
@@ -60,7 +60,7 @@ export function ServicesSection() {
   };
 
   return (
-    <section className="w-full bg-surface-container py-section-gap" id="layanan">
+    <section className="w-full bg-surface-container py-16 md:py-20" id="layanan">
       <div className="container-max mx-auto px-margin-mobile md:px-margin-desktop">
         {/* Section Header */}
         <div className="text-center mb-16">
@@ -78,21 +78,6 @@ export function ServicesSection() {
           {services.map((service) => (
             <ServiceCard key={service.id} service={service} />
           ))}
-        </div>
-
-        {/* All Services CTA */}
-        <div className="text-center mt-16">
-          <Button
-            variant="outline"
-            className="px-8 py-4 rounded-lg border-primary text-primary hover:bg-primary hover:text-on-primary"
-            size="lg"
-            asChild
-          >
-            <Link href="/services">
-              Lihat Semua Layanan
-              <ArrowRight className="ml-2 h-4 w-4" />
-            </Link>
-          </Button>
         </div>
 
         {/* Structured Data for Services */}
@@ -126,7 +111,7 @@ function ServiceCard({ service }: { service: typeof services[0] }) {
         <h3 className="font-headline-md text-headline-md text-primary mb-stack-md">
           {service.title}
         </h3>
-        
+
         <p className="font-body-md text-body-md text-on-surface-variant mb-stack-lg leading-relaxed">
           {service.description}
         </p>
@@ -144,16 +129,13 @@ function ServiceCard({ service }: { service: typeof services[0] }) {
         </ul>
 
         {/* CTA */}
-        <Button
-          variant="link"
-          className="inline-flex items-center gap-2 text-primary font-label-md text-label-md group/link p-0"
-          asChild
+        <Link
+          href={service.href}
+          className="inline-flex items-center gap-2 text-primary font-label-md text-label-md group/link hover:opacity-80 transition-opacity"
         >
-          <Link href={service.href}>
-            <span>Detail Layanan</span>
-            <ArrowRight className="text-sm transition-transform group-hover/link:translate-x-2" />
-          </Link>
-        </Button>
+          <span>Detail Layanan</span>
+          <ArrowRight className="text-sm transition-transform group-hover/link:translate-x-2" />
+        </Link>
       </div>
     </Card>
   );

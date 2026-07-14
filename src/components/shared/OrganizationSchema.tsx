@@ -20,7 +20,7 @@ export function OrganizationSchema() {
       },
       "contactPoint": {
         "@type": "ContactPoint",
-        "telephone": "+62 812 3456 7890",
+        "telephone": "+62 812 1000 4453",
         "contactType": "Customer Service",
         "email": "info@architextrue.com",
         "availableLanguage": ["Indonesian"]
