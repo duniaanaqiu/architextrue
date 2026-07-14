@@ -23,21 +23,21 @@ export function HeroSection() {
 
       {/* Content */}
       <div className="relative z-10 w-full container-max mx-auto px-margin-mobile md:px-margin-desktop flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-8">
-        
+
         {/* Left Column: Text & CTA */}
         <div className="w-full lg:w-1/2 flex flex-col text-center lg:text-left">
           <h1 className="font-display-lg-mobile text-display-lg-mobile md:font-display-lg md:text-display-lg leading-tight md:leading-tight text-on-primary mb-stack-md drop-shadow-lg">
             Bangun Hunian Impian Anda di Yogyakarta Bersama Ahlinya
           </h1>
-          
+
           <p className="font-body-lg text-body-lg text-surface-container-low mb-stack-lg drop-shadow-md">
             Kontraktor spesialis rumah mewah dengan kualitas pengerjaan terbaik dan transparan.
           </p>
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-            <Button 
-              variant="tertiary" 
+            <Button
+              variant="tertiary"
               className="px-8 py-4 rounded-lg ambient-shadow-2 text-center"
               size="lg"
               asChild
@@ -47,9 +47,9 @@ export function HeroSection() {
                 Konsultasi Gratis
               </Link>
             </Button>
-            
-            <Button 
-              variant="outline" 
+
+            <Button
+              variant="outline"
               className="border-[1.5px] border-on-primary text-on-primary px-8 py-4 rounded-lg hover:bg-on-primary/10 text-center backdrop-blur-sm"
               size="lg"
               asChild
