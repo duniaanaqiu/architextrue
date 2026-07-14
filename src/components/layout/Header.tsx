@@ -72,7 +72,6 @@ export function Header() {
           asChild
         >
           <Link href={`https://wa.me/${WHATSAPP_NUMBER}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
-            <Image src="/assets/images/layout/wa.svg" alt="WhatsApp" width={20} height={20} />
             Konsultasi
           </Link>
         </Button>
@@ -111,7 +110,6 @@ export function Header() {
               asChild
             >
               <Link href={`https://wa.me/${WHATSAPP_NUMBER}`} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2" onClick={() => setIsMobileMenuOpen(false)}>
-                <Image src="/assets/images/layout/wa.svg" alt="WhatsApp" width={20} height={20} />
                 Konsultasi
               </Link>
             </Button>
