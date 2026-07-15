@@ -64,11 +64,11 @@ export function ServicesSection() {
       <div className="container-max mx-auto px-margin-mobile md:px-margin-desktop">
         {/* Section Header */}
         <div className="text-center mb-16">
-          <h2 className="font-headline-lg-mobile text-headline-lg-mobile md:font-headline-lg md:text-headline-lg text-primary mb-stack-sm tracking-tight">
+          <h2 className="text-3xl md:text-4xl font-display font-semibold text-primary mb-stack-sm tracking-tight">
             Layanan Unggulan Kami
           </h2>
           <div className="w-16 h-1 bg-tertiary-container mx-auto mb-stack-md"></div>
-          <p className="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto">
+          <p className="text-lg font-body text-on-surface-variant max-w-2xl mx-auto">
             Solusi komprehensif dan terintegrasi untuk mewujudkan hunian mewah yang mencerminkan kepribalian Anda.
           </p>
         </div>
@@ -108,11 +108,11 @@ function ServiceCard({ service }: { service: typeof services[0] }) {
 
       {/* Content */}
       <div className="p-8 md:p-10">
-        <h3 className="font-headline-md text-headline-md text-primary mb-stack-md">
+        <h3 className="text-xl md:text-2xl font-display font-medium text-primary mb-stack-md">
           {service.title}
         </h3>
 
-        <p className="font-body-md text-body-md text-on-surface-variant mb-stack-lg leading-relaxed">
+        <p className="text-base font-body text-on-surface-variant mb-stack-lg leading-relaxed">
           {service.description}
         </p>
 
@@ -121,7 +121,7 @@ function ServiceCard({ service }: { service: typeof services[0] }) {
           {service.features.map((feature, index) => (
             <li key={index} className="flex items-center gap-3">
               <CheckCircle className="text-tertiary-container h-5 w-5 flex-shrink-0" />
-              <span className="font-label-md text-label-md text-on-surface">
+              <span className="text-base font-body font-medium text-on-surface">
                 {feature}
               </span>
             </li>
@@ -131,7 +131,7 @@ function ServiceCard({ service }: { service: typeof services[0] }) {
         {/* CTA */}
         <Link
           href={service.href}
-          className="inline-flex items-center gap-2 text-primary font-label-md text-label-md group/link hover:opacity-80 transition-opacity"
+          className="inline-flex items-center gap-2 text-primary font-body font-medium text-base group/link hover:opacity-80 transition-opacity"
         >
           <span>Detail Layanan</span>
           <ArrowRight className="text-sm transition-transform group-hover/link:translate-x-2" />

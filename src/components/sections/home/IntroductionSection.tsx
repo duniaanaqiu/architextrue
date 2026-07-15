@@ -24,15 +24,15 @@ export function IntroductionSection() {
 
       {/* Content Column */}
       <div className="flex flex-col h-full justify-center py-4">
-        <h2 className="font-headline-lg-mobile text-headline-lg-mobile md:font-headline-lg md:text-headline-lg text-primary mb-stack-md">
+        <h2 className="text-3xl md:text-4xl font-display font-semibold text-primary mb-stack-md">
           Dedikasi Pada Kualitas
         </h2>
 
-        <p className="font-body-md text-body-md text-on-surface-variant mb-stack-lg">
+        <p className="text-base font-body text-on-surface-variant mb-stack-lg">
           ARCHITEXTRUE lahir dari pemahaman bahwa sebuah rumah bukan sekadar bangunan, melainkan mahakarya kehidupan. Berbasis di Yogyakarta, kami memadukan kekokohan struktural dengan estetika tropis modern yang elegan.
         </p>
 
-        <p className="font-body-md text-body-md text-on-surface-variant mb-stack-lg">
+        <p className="text-base font-body text-on-surface-variant mb-stack-lg">
           Dengan pengalaman menangani berbagai proyek hunian premium, tim kami menjamin setiap detail dikerjakan dengan presisi tinggi, menggunakan material terbaik, dan proses yang sepenuhnya transparan.
         </p>
 
@@ -45,10 +45,10 @@ export function IntroductionSection() {
               </div>
             </div>
             <div>
-              <h3 className="font-label-md text-label-md text-primary mb-1">
+              <h3 className="text-lg font-display font-medium text-primary mb-1">
                 Material Premium
               </h3>
-              <p className="font-body-md text-body-md text-on-surface-variant text-sm">
+              <p className="text-sm font-body text-on-surface-variant">
                 Hanya menggunakan material berkualitas tinggi dan teruji
               </p>
             </div>
@@ -61,10 +61,10 @@ export function IntroductionSection() {
               </div>
             </div>
             <div>
-              <h3 className="font-label-md text-label-md text-primary mb-1">
+              <h3 className="text-lg font-display font-medium text-primary mb-1">
                 Tim Profesional
               </h3>
-              <p className="font-body-md text-body-md text-on-surface-variant text-sm">
+              <p className="text-sm font-body text-on-surface-variant">
                 Tenaga ahli berpengalaman dengan sertifikasi terkini
               </p>
             </div>
@@ -73,10 +73,10 @@ export function IntroductionSection() {
 
         {/* Quote */}
         <div className="mt-4 pt-6 border-t border-primary/10">
-          <blockquote className="font-headline-sm text-headline-sm md:text-xl italic text-primary/90 leading-relaxed">
+          <blockquote className="text-xl md:text-2xl font-display italic text-primary/90 leading-relaxed">
             "Sebuah bangunan tidak hanya diukur dari kekokohannya, tetapi dari kehidupan dan memori yang akan tumbuh di dalamnya."
           </blockquote>
-          <p className="font-label-md text-xs text-primary/60 mt-3 font-bold tracking-widest uppercase">
+          <p className="text-xs font-body text-primary/60 mt-3 font-bold tracking-widest uppercase">
             — Tim ARCHITEXTRUE
           </p>
         </div>

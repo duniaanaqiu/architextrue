@@ -26,11 +26,11 @@ export function HeroSection() {
 
         {/* Left Column: Text & CTA */}
         <div className="w-full lg:w-1/2 flex flex-col text-center lg:text-left">
-          <h1 className="font-display-lg-mobile text-display-lg-mobile md:font-display-lg md:text-display-lg leading-tight md:leading-tight text-on-primary mb-stack-md drop-shadow-lg">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-semibold leading-tight text-on-primary mb-stack-md drop-shadow-lg">
             Bangun Hunian Impian Anda di Yogyakarta Bersama Ahlinya
           </h1>
 
-          <p className="font-body-lg text-body-lg text-surface-container-low mb-stack-lg drop-shadow-md">
+          <p className="text-lg md:text-xl font-body text-surface-container-low mb-stack-lg drop-shadow-md">
             Kontraktor spesialis rumah mewah dengan kualitas pengerjaan terbaik dan transparan.
           </p>
 

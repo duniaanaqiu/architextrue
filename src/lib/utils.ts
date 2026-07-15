@@ -114,6 +114,21 @@ export function generateBreadcrumbSchema(paths: Array<{ name: string; href: stri
   }
 }
 
+export function generateFAQSchema(faqs: Array<{ question: string; answer: string }>) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faqs.map((faq) => ({
+      "@type": "Question",
+      "name": faq.question,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": faq.answer,
+      },
+    })),
+  };
+}
+
 // Content utilities
 export function formatDate(date: string | Date) {
   return new Date(date).toLocaleDateString("id-ID", {
