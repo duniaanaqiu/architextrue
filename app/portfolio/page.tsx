@@ -4,22 +4,28 @@ import { ProjectFilterGridSection } from "@/components/sections/portfolio/Projec
 import { CTASection } from "@/components/sections/shared/CTASection";
 import { StructuredData } from "@/components/shared/StructuredData";
 import { generateBreadcrumbSchema, generateLocalBusinessSchema, generateWebPageSchema } from "@/lib/utils";
-import { portfolioData } from "@/lib/data/portfolio";
+import { prisma } from "@/lib/prisma";
+
+export const dynamic = "force-dynamic";
 
 export const metadata = {
   title: "Portfolio | ARCHITEXTRUE - Koleksi Mahakarya Kami",
   description: "Eksplorasi kumpulan karya terbaik ARCHITEXTRUE, dari bangun baru hingga renovasi rumah mewah.",
 };
 
-export default function PortfolioPage() {
+export default async function PortfolioPage() {
   const breadcrumbSchema = generateBreadcrumbSchema([
     { name: "Portfolio", href: "/portfolio" },
   ]);
 
+  const portfolios = await prisma.portfolio.findMany({
+    orderBy: { createdAt: 'desc' }
+  });
+
   const itemListSchema = {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    "itemListElement": portfolioData.map((project, index) => ({
+    "itemListElement": portfolios.map((project, index) => ({
       "@type": "ListItem",
       "position": index + 1,
       "url": `https://architextrue.com/portfolio#${project.id}`,
@@ -42,8 +48,8 @@ export default function PortfolioPage() {
       <StructuredData data={webpageSchema} />
       
       <HeroPortfolioSection />
-      <FeaturedGallerySection />
-      <ProjectFilterGridSection />
+      <FeaturedGallerySection portfolios={portfolios} />
+      <ProjectFilterGridSection portfolios={portfolios} />
       <CTASection />
     </main>
   );

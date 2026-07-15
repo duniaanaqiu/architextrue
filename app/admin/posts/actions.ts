@@ -63,3 +63,55 @@ export async function createPost(data: {
     return { success: false, error: "Failed to create post." };
   }
 }
+
+export async function updatePost(
+  id: string,
+  data: {
+    title: string;
+    slug: string;
+    excerpt: string;
+    content: string;
+    featuredImage?: string;
+    isPublished: boolean;
+    categoryId: string;
+    tagIds: string[];
+  }
+) {
+  try {
+    // Calculate reading time roughly (200 words per minute)
+    const wordCount = data.content.replace(/<[^>]*>?/gm, '').split(/\s+/).length;
+    const readingTime = Math.max(1, Math.ceil(wordCount / 200));
+
+    const post = await prisma.post.update({
+      where: { id },
+      data: {
+        title: data.title,
+        slug: data.slug,
+        excerpt: data.excerpt,
+        content: data.content,
+        featuredImage: data.featuredImage,
+        isPublished: data.isPublished,
+        readingTime,
+        categories: {
+          set: [], // Clear existing relations
+          connect: { id: data.categoryId }
+        },
+        tags: {
+          set: [], // Clear existing relations
+          connect: data.tagIds.map(tagId => ({ id: tagId }))
+        }
+      }
+    });
+
+    revalidatePath("/admin/posts");
+    revalidatePath("/blog");
+    revalidatePath(`/blog/${data.slug}`);
+    return { success: true, post };
+  } catch (error: any) {
+    console.error("Failed to update post:", error);
+    if (error.code === 'P2002' && error.meta?.target?.includes('slug')) {
+      return { success: false, error: "Slug URL already exists. Please choose a different one." };
+    }
+    return { success: false, error: "Failed to update post." };
+  }
+}

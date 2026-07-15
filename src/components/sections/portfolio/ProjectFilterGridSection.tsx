@@ -2,22 +2,25 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { portfolioData, ProjectCategory } from "@/lib/data/portfolio";
+import { Portfolio } from "@prisma/client";
 
-const CATEGORIES: ("Semua" | ProjectCategory)[] = ["Semua", "Bangun dari Nol", "Renovasi"];
+const CATEGORIES: ("Semua" | "Bangun dari Nol" | "Renovasi")[] = ["Semua", "Bangun dari Nol", "Renovasi"];
 
-export function ProjectFilterGridSection() {
-  const [activeCategory, setActiveCategory] = useState<"Semua" | ProjectCategory>("Semua");
+export function ProjectFilterGridSection({ portfolios }: { portfolios: Portfolio[] }) {
+  const [activeCategory, setActiveCategory] = useState<"Semua" | "Bangun dari Nol" | "Renovasi">("Semua");
   const [visibleCount, setVisibleCount] = useState(6); // Default 6 items
 
-  const filteredProjects = portfolioData.filter(project => 
-    activeCategory === "Semua" ? true : project.category === activeCategory
-  );
+  const filteredProjects = portfolios.filter(project => {
+    if (activeCategory === "Semua") return true;
+    if (activeCategory === "Bangun dari Nol") return project.serviceType === "JASA_BANGUN_RUMAH";
+    if (activeCategory === "Renovasi") return project.serviceType === "JASA_RENOVASI_RUMAH";
+    return true;
+  });
 
   const displayedProjects = filteredProjects.slice(0, visibleCount);
 
   // Reset count when category changes
-  const handleCategoryChange = (category: "Semua" | ProjectCategory) => {
+  const handleCategoryChange = (category: "Semua" | "Bangun dari Nol" | "Renovasi") => {
     setActiveCategory(category);
     setVisibleCount(6);
   };
@@ -60,7 +63,7 @@ export function ProjectFilterGridSection() {
           {displayedProjects.map((project) => (
             <div key={project.id} className="group relative rounded-2xl overflow-hidden aspect-[4/5] bg-surface-container">
               <Image
-                src={project.image}
+                src={project.images[0] || "/images/placeholder.jpg"}
                 alt={project.title}
                 fill
                 className="object-cover transition-transform duration-700 group-hover:scale-110"
@@ -71,7 +74,7 @@ export function ProjectFilterGridSection() {
               <div className="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6 md:p-8">
                 <div className="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
                   <span className="text-secondary font-label-md text-sm mb-2 block drop-shadow-md">
-                    {project.category}
+                    {project.serviceType === "JASA_BANGUN_RUMAH" ? "Bangun Rumah" : "Renovasi"}
                   </span>
                   <h3 className="text-white font-display text-xl md:text-2xl font-semibold mb-1 drop-shadow-md">
                     {project.title}
@@ -82,7 +85,7 @@ export function ProjectFilterGridSection() {
                       {project.location}
                     </p>
                     <span className="text-white/60 text-xs font-label-sm border border-white/20 rounded-full px-3 py-1">
-                      {project.year}
+                      {new Date(project.completedAt).getFullYear()}
                     </span>
                   </div>
                 </div>

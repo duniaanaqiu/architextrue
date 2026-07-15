@@ -9,6 +9,7 @@ import { CTASection } from "@/components/sections/shared/CTASection";
 import { StructuredData } from "@/components/shared/StructuredData";
 import { generateMetadata, generateLocalBusinessSchema, generateBreadcrumbSchema, generateFAQSchema, generateWebPageSchema } from "@/lib/utils";
 import { faqHome } from "@/lib/data/faq";
+import { prisma } from "@/lib/prisma";
 
 export const metadata: Metadata = generateMetadata({
   title: "ARCHITEXTRUE - Jasa Bangun Rumah Mewah di Yogyakarta",
@@ -16,7 +17,7 @@ export const metadata: Metadata = generateMetadata({
   path: "/",
 });
 
-export default function HomePage() {
+export default async function HomePage() {
   const breadcrumbSchema = generateBreadcrumbSchema([
     { name: "Beranda", href: "/" },
   ]);
@@ -31,6 +32,10 @@ export default function HomePage() {
 
   const faqSchema = generateFAQSchema(faqHome);
 
+  const testimonials = await prisma.testimonial.findMany({
+    orderBy: { createdAt: 'desc' }
+  });
+
   return (
     <>
       {/* Structured Data Components */}
@@ -44,7 +49,7 @@ export default function HomePage() {
         <IntroductionSection />
         <ServicesSection />
         <ProcessSection />
-        <TestimonialsSection />
+        <TestimonialsSection testimonials={testimonials} />
         <FAQSection data={faqHome} />
         <CTASection />
       </main>

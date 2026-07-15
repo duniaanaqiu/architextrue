@@ -1,16 +1,18 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { ArrowLeft, Save, Send, Image as ImageIcon, Loader2, Sparkles } from "lucide-react";
+import { ArrowLeft, Save, Send, Image as ImageIcon, Loader2, Sparkles, Plus } from "lucide-react";
 import Link from "next/link";
 import { Editor } from "./Editor";
-import { createPost } from "../../../app/admin/posts/actions";
+import { createPost, updatePost } from "../../../app/admin/posts/actions";
+import { generateFullArticle, generateMetaDesc } from "../../../app/admin/posts/ai-actions";
 import Image from "next/image";
 
 import { CategoryFormModal } from "./CategoryFormModal";
 import { TagFormModal } from "./TagFormModal";
-import { Plus } from "lucide-react";
+import { MediaPickerModal } from "./MediaPickerModal";
+import { UploadMediaModal } from "./UploadMediaModal";
 
 interface Category {
   id: string;
@@ -22,13 +24,26 @@ interface Tag {
   name: string;
 }
 
+interface Post {
+  id: string;
+  title: string;
+  slug: string;
+  excerpt: string;
+  content: string;
+  featuredImage: string | null;
+  isPublished: boolean;
+  categories: Category[];
+  tags: Tag[];
+}
+
 interface PostFormClientProps {
   categories: Category[];
   tags: Tag[];
   authorId: string;
+  post?: Post;
 }
 
-export function PostFormClient({ categories, tags, authorId }: PostFormClientProps) {
+export function PostFormClient({ categories, tags, authorId, post }: PostFormClientProps) {
   const router = useRouter();
   
   const [title, setTitle] = useState("");
@@ -39,13 +54,33 @@ export function PostFormClient({ categories, tags, authorId }: PostFormClientPro
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [featuredImage, setFeaturedImage] = useState("");
   
+  useEffect(() => {
+    if (post) {
+      setTitle(post.title);
+      setSlug(post.slug);
+      setExcerpt(post.excerpt);
+      setContent(post.content);
+      setFeaturedImage(post.featuredImage || "");
+      if (post.categories && post.categories.length > 0) {
+        setCategoryId(post.categories[0].id);
+      }
+      if (post.tags) {
+        setSelectedTags(post.tags.map(t => t.id));
+      }
+    }
+  }, [post]);
+  
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isGenerating, setIsGenerating] = useState(false);
   const [isGeneratingMeta, setIsGeneratingMeta] = useState(false);
   const [error, setError] = useState("");
 
+  const [isCategoryDropdownOpen, setIsCategoryDropdownOpen] = useState(false);
+
+  const [isMediaPickerOpen, setIsMediaPickerOpen] = useState(false);
   const [isCategoryModalOpen, setIsCategoryModalOpen] = useState(false);
   const [isTagModalOpen, setIsTagModalOpen] = useState(false);
+  const [isMediaModalOpen, setIsMediaModalOpen] = useState(false);
 
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newTitle = e.target.value;
@@ -77,23 +112,18 @@ export function PostFormClient({ categories, tags, authorId }: PostFormClientPro
 
     setIsGenerating(true);
     try {
-      const res = await fetch("/api/ai/generate-article", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ topic }),
-      });
+      const res = await generateFullArticle(topic);
       
-      const data = await res.json();
-      if (res.ok) {
-        setTitle(data.title || "");
-        setSlug(data.slug || "");
-        setExcerpt(data.metaDescription || "");
-        setContent(data.content || "");
+      if (res.success && res.data) {
+        setTitle(res.data.title || "");
+        setSlug(res.data.slug || "");
+        setExcerpt(res.data.metaDescription || "");
+        setContent(res.data.content || "");
       } else {
-        alert(data.error || "Gagal meng-generate artikel.");
+        alert(res.error || "Gagal meng-generate artikel.");
       }
-    } catch (err) {
-      alert("Terjadi kesalahan sistem saat menghubungi AI.");
+    } catch (err: any) {
+      alert(err.message || "Terjadi kesalahan sistem saat menghubungi AI.");
     } finally {
       setIsGenerating(false);
     }
@@ -107,20 +137,15 @@ export function PostFormClient({ categories, tags, authorId }: PostFormClientPro
 
     setIsGeneratingMeta(true);
     try {
-      const res = await fetch("/api/ai/generate-meta", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ content }),
-      });
+      const res = await generateMetaDesc(content);
       
-      const data = await res.json();
-      if (res.ok) {
-        setExcerpt(data.metaDescription || "");
+      if (res.success && res.text) {
+        setExcerpt(res.text);
       } else {
-        alert(data.error || "Gagal meng-generate meta deskripsi.");
+        alert(res.error || "Gagal meng-generate meta description.");
       }
-    } catch (err) {
-      alert("Terjadi kesalahan sistem saat menghubungi AI.");
+    } catch (err: any) {
+      alert(err.message || "Terjadi kesalahan sistem saat menghubungi AI.");
     } finally {
       setIsGeneratingMeta(false);
     }
@@ -137,17 +162,31 @@ export function PostFormClient({ categories, tags, authorId }: PostFormClientPro
     setError("");
 
     try {
-      const result = await createPost({
-        title,
-        slug,
-        excerpt: excerpt || title,
-        content,
-        featuredImage: featuredImage || undefined,
-        isPublished,
-        categoryId,
-        tagIds: selectedTags,
-        authorId,
-      });
+      let result;
+      if (post) {
+        result = await updatePost(post.id, {
+          title,
+          slug,
+          excerpt: excerpt || title,
+          content,
+          featuredImage: featuredImage || undefined,
+          isPublished,
+          categoryId,
+          tagIds: selectedTags,
+        });
+      } else {
+        result = await createPost({
+          title,
+          slug,
+          excerpt: excerpt || title,
+          content,
+          featuredImage: featuredImage || undefined,
+          isPublished,
+          categoryId,
+          tagIds: selectedTags,
+          authorId,
+        });
+      }
 
       if (result.success) {
         router.push("/admin/posts");
@@ -165,34 +204,15 @@ export function PostFormClient({ categories, tags, authorId }: PostFormClientPro
   };
 
   return (
-    <div className="max-w-5xl mx-auto pb-12">
-      {/* Header Actions */}
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4">
+    <div className="w-full max-w-6xl mx-auto pb-12">
+      <div className="mb-4">
         <Link 
           href="/admin/posts"
-          className="flex items-center gap-2 text-on-surface-variant hover:text-primary transition-colors font-body"
+          className="flex items-center gap-2 text-on-surface-variant hover:text-primary transition-colors font-body w-fit"
         >
           <ArrowLeft className="w-5 h-5" />
           Back to Articles
         </Link>
-        <div className="flex gap-3">
-          <button
-            onClick={() => handleSubmit(false)}
-            disabled={isSubmitting}
-            className="flex items-center gap-2 px-6 py-2.5 bg-surface text-primary border border-surface-container rounded-xl font-body font-semibold hover:bg-surface-container-low transition-colors cursor-pointer disabled:opacity-50"
-          >
-            {isSubmitting ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
-            Save Draft
-          </button>
-          <button
-            onClick={() => handleSubmit(true)}
-            disabled={isSubmitting}
-            className="flex items-center gap-2 px-6 py-2.5 bg-primary text-on-primary rounded-xl font-body font-semibold hover:bg-primary/90 transition-colors cursor-pointer disabled:opacity-50"
-          >
-            {isSubmitting ? <Loader2 className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
-            Publish Now
-          </button>
-        </div>
       </div>
 
       {error && (
@@ -201,10 +221,13 @@ export function PostFormClient({ categories, tags, authorId }: PostFormClientPro
         </div>
       )}
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
         <div className="lg:col-span-2 space-y-6">
           
-          <div className="flex justify-start">
+          <div className="flex justify-between items-center">
+            <h1 className="font-display text-2xl font-bold text-primary">
+              {post ? "Edit Article" : "Create New Article"}
+            </h1>
             <button
               onClick={handleGenerateFullArticle}
               disabled={isGenerating}
@@ -245,6 +268,26 @@ export function PostFormClient({ categories, tags, authorId }: PostFormClientPro
         </div>
 
         <div className="space-y-6">
+          {/* Action Buttons */}
+          <div className="flex gap-3">
+            <button
+              onClick={() => handleSubmit(false)}
+              disabled={isSubmitting}
+              className="flex-1 flex items-center justify-center gap-2 px-4 py-3 bg-surface text-primary border border-surface-container rounded-xl font-body font-semibold hover:bg-surface-container-low transition-colors cursor-pointer disabled:opacity-50"
+            >
+              {isSubmitting ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
+              Save Draft
+            </button>
+            <button
+              onClick={() => handleSubmit(true)}
+              disabled={isSubmitting}
+              className="flex-1 flex items-center justify-center gap-2 px-4 py-3 bg-primary text-on-primary rounded-xl font-body font-semibold hover:opacity-90 transition-opacity cursor-pointer disabled:opacity-50"
+            >
+              {isSubmitting ? <Loader2 className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
+              Publish Now
+            </button>
+          </div>
+
           <div className="bg-surface border border-surface-container rounded-2xl p-6">
             <div className="flex justify-between items-center mb-2">
               <label className="text-sm font-semibold text-primary">Meta Description</label>
@@ -258,16 +301,28 @@ export function PostFormClient({ categories, tags, authorId }: PostFormClientPro
                 AI: Generate Meta Desc
               </button>
             </div>
-            <textarea
-              value={excerpt}
-              onChange={(e) => setExcerpt(e.target.value)}
-              placeholder="Tulis ringkasan singkat atau meta description untuk SEO..."
-              className="w-full bg-surface-container-lowest border border-outline-variant/50 rounded-xl p-4 font-body text-primary placeholder:text-outline focus:outline-none focus:border-primary resize-none h-28"
-            />
+            <div className="w-full bg-surface-container-lowest border border-outline-variant/50 rounded-xl overflow-hidden focus-within:border-primary transition-colors">
+              <textarea
+                value={excerpt}
+                onChange={(e) => setExcerpt(e.target.value)}
+                placeholder="Tulis ringkasan singkat atau meta description untuk SEO..."
+                className="w-full h-28 p-4 font-body text-primary placeholder:text-outline focus:outline-none resize-none bg-transparent block"
+              />
+            </div>
           </div>
 
           <div className="bg-surface border border-surface-container rounded-2xl p-6">
-            <h3 className="font-semibold text-primary mb-4">Cover Image</h3>
+            <div className="flex justify-between items-center mb-4">
+              <h3 className="font-semibold text-primary">Cover Image</h3>
+              <button
+                type="button"
+                onClick={() => setIsMediaModalOpen(true)}
+                className="p-1 rounded-md text-tertiary hover:bg-tertiary-container/30 transition-colors cursor-pointer"
+                title="Add Media"
+              >
+                <Plus className="w-4 h-4" />
+              </button>
+            </div>
             {featuredImage ? (
               <div className="relative aspect-video rounded-xl overflow-hidden group">
                 <Image src={featuredImage} alt="Cover" fill className="object-cover" />
@@ -281,17 +336,30 @@ export function PostFormClient({ categories, tags, authorId }: PostFormClientPro
                 </div>
               </div>
             ) : (
-              <div className="border-2 border-dashed border-outline-variant/50 rounded-xl p-6 flex flex-col items-center justify-center text-center">
-                <ImageIcon className="w-8 h-8 text-outline mb-2" />
-                <p className="text-sm text-on-surface-variant mb-4">
-                  Tempel URL gambar dari Media Gallery di sini.
-                </p>
+              <div className="flex flex-col">
+                <div 
+                  className="border-2 border-dashed border-outline-variant/50 hover:border-primary/50 hover:bg-primary/5 rounded-xl p-6 flex flex-col items-center justify-center text-center transition-all cursor-pointer group"
+                  onClick={() => setIsMediaPickerOpen(true)}
+                >
+                  <div className="w-12 h-12 rounded-full bg-surface-container group-hover:bg-primary/10 group-hover:text-primary flex items-center justify-center text-on-surface-variant transition-colors mb-3">
+                    <ImageIcon className="w-6 h-6" />
+                  </div>
+                  <p className="text-sm font-semibold text-primary mb-1">Pilih dari Media Gallery</p>
+                  <p className="text-xs text-outline">Klik untuk membuka gallery</p>
+                </div>
+                
+                <div className="mt-4 flex items-center gap-3">
+                  <div className="h-px flex-1 bg-surface-container"></div>
+                  <span className="text-[10px] font-bold text-outline tracking-wider">ATAU PASTE URL</span>
+                  <div className="h-px flex-1 bg-surface-container"></div>
+                </div>
+                
                 <input 
                   type="text"
                   placeholder="https://utfs.io/f/..."
                   value={featuredImage}
                   onChange={(e) => setFeaturedImage(e.target.value)}
-                  className="w-full text-sm p-2 border border-surface-container rounded-lg focus:outline-none focus:border-primary bg-surface-container-lowest text-primary"
+                  className="mt-4 w-full text-sm p-2.5 border border-surface-container rounded-xl focus:outline-none focus:border-primary bg-surface-container-lowest text-primary placeholder:text-outline-variant"
                 />
               </div>
             )}
@@ -310,19 +378,48 @@ export function PostFormClient({ categories, tags, authorId }: PostFormClientPro
               </button>
             </div>
             <div className="relative group">
-              <select
-                value={categoryId}
-                onChange={(e) => setCategoryId(e.target.value)}
-                className="w-full p-3 bg-surface-container-lowest border border-outline-variant/50 rounded-xl font-body text-primary focus:outline-none focus:border-primary cursor-pointer appearance-none"
+              <div 
+                className="w-full p-3 bg-surface-container-lowest border border-outline-variant/50 rounded-xl font-body text-primary cursor-pointer flex justify-between items-center hover:border-primary/50 transition-colors"
+                onClick={() => setIsCategoryDropdownOpen(!isCategoryDropdownOpen)}
               >
-                <option value="" disabled>Select a category</option>
-                {categories.map((cat) => (
-                  <option key={cat.id} value={cat.id} className="text-primary bg-surface py-2">{cat.name}</option>
-                ))}
-              </select>
-              <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-outline group-hover:text-primary transition-colors">
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
+                <span>
+                  {categoryId 
+                    ? categories.find(c => c.id === categoryId)?.name 
+                    : <span className="text-outline">Select a category</span>}
+                </span>
+                <svg className={`w-5 h-5 text-outline transition-transform duration-200 ${isCategoryDropdownOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
               </div>
+
+              {isCategoryDropdownOpen && (
+                <>
+                  <div 
+                    className="fixed inset-0 z-40" 
+                    onClick={() => setIsCategoryDropdownOpen(false)}
+                  />
+                  <div className="absolute top-full left-0 right-0 mt-2 bg-surface-container-lowest border border-surface-container rounded-xl shadow-lg z-50 overflow-hidden py-2 animate-in fade-in slide-in-from-top-2 duration-200">
+                    {categories.length === 0 ? (
+                      <div className="px-4 py-3 text-sm text-outline text-center">Belum ada kategori</div>
+                    ) : (
+                      categories.map((cat) => (
+                        <div
+                          key={cat.id}
+                          className={`px-4 py-2.5 text-sm cursor-pointer transition-colors ${
+                            categoryId === cat.id 
+                              ? 'bg-primary/10 text-primary font-semibold' 
+                              : 'text-on-surface hover:bg-surface-container'
+                          }`}
+                          onClick={() => {
+                            setCategoryId(cat.id);
+                            setIsCategoryDropdownOpen(false);
+                          }}
+                        >
+                          {cat.name}
+                        </div>
+                      ))
+                    )}
+                  </div>
+                </>
+              )}
             </div>
           </div>
 
@@ -372,6 +469,18 @@ export function PostFormClient({ categories, tags, authorId }: PostFormClientPro
       <TagFormModal 
         isOpen={isTagModalOpen}
         onClose={() => setIsTagModalOpen(false)}
+      />
+
+      <UploadMediaModal
+        isOpen={isMediaModalOpen}
+        onClose={() => setIsMediaModalOpen(false)}
+        onUploadComplete={(url) => setFeaturedImage(url)}
+      />
+
+      <MediaPickerModal
+        isOpen={isMediaPickerOpen}
+        onClose={() => setIsMediaPickerOpen(false)}
+        onSelect={(url) => setFeaturedImage(url)}
       />
     </div>
   );

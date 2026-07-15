@@ -19,7 +19,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         
         <div className="flex-1 flex flex-col min-w-0 lg:ml-20 transition-all duration-300">
           <Topbar onMenuClick={() => setIsSidebarOpen(true)} />
-          <main className="flex-1 p-4 lg:p-8 overflow-x-hidden">
+          <main className="flex-1 p-4 lg:pl-36 lg:pr-8 lg:py-4 overflow-x-hidden">
             {children}
           </main>
         </div>

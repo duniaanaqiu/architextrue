@@ -17,11 +17,11 @@ export function Topbar({ onMenuClick }: { onMenuClick: () => void }) {
         >
           <Menu className="h-6 w-6" />
         </button>
-
-        <h2 className="font-display font-semibold text-lg text-primary hidden sm:block">
-          Manajemen Konten & Portofolio
-        </h2>
       </div>
+
+      <h2 className="absolute left-[45%] -translate-x-1/2 font-display font-semibold text-lg text-primary hidden sm:block">
+        Manajemen Konten & Portofolio
+      </h2>
 
       <div className="flex items-center gap-4">
         <div className="flex items-center gap-3">

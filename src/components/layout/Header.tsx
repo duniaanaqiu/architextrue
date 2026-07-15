@@ -37,6 +37,9 @@ export function Header() {
   const [expandedMobileItem, setExpandedMobileItem] = useState<string | null>(null);
   const pathname = usePathname();
 
+  const isForceScrolled = pathname.startsWith("/blog");
+  const effectiveIsScrolled = isScrolled || isForceScrolled;
+
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
@@ -50,12 +53,12 @@ export function Header() {
   }
 
   return (
-    <header className={`top-0 fixed z-50 w-full transition-all duration-300 ${isScrolled ? "glass-nav border-b border-surface-container py-2" : "bg-transparent py-4"}`}>
+    <header className={`top-0 fixed z-50 w-full transition-all duration-300 ${effectiveIsScrolled ? "glass-nav border-b border-surface-container py-2" : "bg-transparent py-4"}`}>
       <div className="flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop py-4 container-max mx-auto">
         {/* Logo */}
         <Link href="/" className="flex items-center">
           <Image
-            src={isScrolled ? "/assets/images/layout/logo-primary.png" : "/assets/images/layout/logo-white.png"}
+            src={effectiveIsScrolled ? "/assets/images/layout/logo-primary.png" : "/assets/images/layout/logo-white.png"}
             alt="ARCHITEXTRUE Logo"
             width={240}
             height={60}
@@ -74,7 +77,7 @@ export function Header() {
                 {item.subItems ? (
                   <button
                     className={`flex items-center gap-1 font-label-md text-label-md transition-colors relative py-2 cursor-pointer ${
-                      isScrolled ? "text-secondary hover:text-tertiary" : "text-white hover:text-white/80 drop-shadow-md"
+                      effectiveIsScrolled ? "text-secondary hover:text-tertiary" : "text-white hover:text-white/80 drop-shadow-md"
                     }`}
                   >
                     {item.label}
@@ -83,7 +86,7 @@ export function Header() {
                     {/* Active Indicator Line (Glassmorphic) */}
                     {isActive && (
                       <span className={`absolute bottom-0 left-0 w-full h-[2px] rounded-full backdrop-blur-sm transition-colors ${
-                        isScrolled ? 'bg-primary/50' : 'bg-white/50'
+                        effectiveIsScrolled ? 'bg-primary/50' : 'bg-white/50'
                       }`}></span>
                     )}
                   </button>
@@ -91,14 +94,14 @@ export function Header() {
                   <Link
                     href={item.href}
                     className={`flex items-center gap-1 font-label-md text-label-md transition-colors relative py-2 ${
-                      isScrolled ? "text-secondary hover:text-tertiary" : "text-white hover:text-white/80 drop-shadow-md"
+                      effectiveIsScrolled ? "text-secondary hover:text-tertiary" : "text-white hover:text-white/80 drop-shadow-md"
                     }`}
                   >
                     {item.label}
                     {/* Active Indicator Line (Glassmorphic) */}
                     {isActive && (
                       <span className={`absolute bottom-0 left-0 w-full h-[2px] rounded-full backdrop-blur-sm transition-colors ${
-                        isScrolled ? 'bg-primary/50' : 'bg-white/50'
+                        effectiveIsScrolled ? 'bg-primary/50' : 'bg-white/50'
                       }`}></span>
                     )}
                   </Link>
@@ -108,14 +111,14 @@ export function Header() {
                 {item.subItems && (
                   <div className="absolute top-full left-1/2 -translate-x-1/2 pt-4 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">
                     <div className={`backdrop-blur-md rounded-xl p-2 min-w-[240px] shadow-xl flex flex-col gap-1 transition-colors ${
-                      isScrolled ? "bg-surface/95 border border-surface-container" : "bg-white/5 border border-white/20"
+                      effectiveIsScrolled ? "bg-surface/95 border border-surface-container" : "bg-white/5 border border-white/20"
                     }`}>
                       {item.subItems.map((sub) => (
                         <Link
                           key={sub.href}
                           href={sub.href}
                           className={`px-4 py-3 text-sm font-label-md rounded-lg transition-colors ${
-                            isScrolled
+                            effectiveIsScrolled
                               ? pathname === sub.href ? "bg-primary/10 text-primary" : "text-on-surface hover:bg-surface-container hover:text-primary"
                               : pathname === sub.href ? "bg-white/20 text-white" : "text-white/80 hover:bg-white/10 hover:text-white"
                           }`}
@@ -133,8 +136,8 @@ export function Header() {
 
         {/* Desktop CTA Button */}
         <Button
-          variant={isScrolled ? "default" : "outline"}
-          className={`hidden md:inline-flex font-label-md text-label-md px-6 py-3 rounded-lg transition-all ${isScrolled
+          variant={effectiveIsScrolled ? "default" : "outline"}
+          className={`hidden md:inline-flex font-label-md text-label-md px-6 py-3 rounded-lg transition-all ${effectiveIsScrolled
             ? "bg-primary text-white ambient-shadow-1 hover:bg-primary-container hover:text-primary"
             : "border-[1.5px] border-white text-white hover:bg-white/10 backdrop-blur-sm"
             }`}
@@ -147,7 +150,7 @@ export function Header() {
 
         {/* Mobile Menu Toggle */}
         <button
-          className={`md:hidden p-2 transition-colors ${isScrolled ? "text-primary" : "text-white drop-shadow-md"}`}
+          className={`md:hidden p-2 transition-colors ${effectiveIsScrolled ? "text-primary" : "text-white drop-shadow-md"}`}
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           aria-label="Toggle mobile menu"
         >
@@ -161,7 +164,7 @@ export function Header() {
 
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
-        <div className={`md:hidden border-t transition-colors duration-300 ${isScrolled ? "bg-surface border-surface-container" : "bg-white/5 backdrop-blur-md border-white/20"}`}>
+        <div className={`md:hidden border-t transition-colors duration-300 ${effectiveIsScrolled ? "bg-surface border-surface-container" : "bg-white/5 backdrop-blur-md border-white/20"}`}>
           <div className="px-margin-mobile py-4 flex flex-col gap-2">
             {navigationItems.map((item) => {
               const isActive = pathname === item.href || (item.subItems && item.subItems.some(sub => pathname === sub.href));
@@ -171,7 +174,7 @@ export function Header() {
                   {item.subItems ? (
                     <button
                       className={`w-full font-label-md text-label-md py-3 px-2 rounded-lg transition-colors flex items-center justify-between ${
-                        isScrolled
+                        effectiveIsScrolled
                           ? isActive ? "bg-primary/5 text-tertiary font-bold" : "text-primary hover:bg-surface-container hover:text-tertiary"
                           : isActive ? "bg-white/10 text-white font-bold" : "text-white/80 hover:bg-white/5 hover:text-white"
                       }`}
@@ -184,7 +187,7 @@ export function Header() {
                     <Link
                       href={item.href}
                       className={`font-label-md text-label-md py-3 px-2 rounded-lg transition-colors flex items-center justify-between ${
-                        isScrolled
+                        effectiveIsScrolled
                           ? isActive ? "bg-primary/5 text-tertiary font-bold" : "text-primary hover:bg-surface-container hover:text-tertiary"
                           : isActive ? "bg-white/10 text-white font-bold" : "text-white/80 hover:bg-white/5 hover:text-white"
                       }`}
@@ -198,13 +201,13 @@ export function Header() {
                     <div 
                       className={`overflow-hidden transition-all duration-300 ${expandedMobileItem === item.label ? "max-h-60 opacity-100" : "max-h-0 opacity-0"}`}
                     >
-                      <div className={`flex flex-col pl-4 border-l-2 ml-4 mt-1 mb-2 gap-1 ${isScrolled ? "border-surface-container" : "border-white/20"}`}>
+                      <div className={`flex flex-col pl-4 border-l-2 ml-4 mt-1 mb-2 gap-1 ${effectiveIsScrolled ? "border-surface-container" : "border-white/20"}`}>
                         {item.subItems.map((sub) => (
                           <Link
                             key={sub.href}
                             href={sub.href}
                             className={`font-label-md text-sm py-2 px-2 rounded-lg transition-colors ${
-                              isScrolled
+                              effectiveIsScrolled
                                 ? pathname === sub.href ? "text-tertiary font-bold bg-primary/5" : "text-on-surface-variant hover:text-primary hover:bg-surface-container"
                                 : pathname === sub.href ? "text-white font-bold bg-white/10" : "text-white/70 hover:text-white hover:bg-white/5"
                             }`}
@@ -220,10 +223,10 @@ export function Header() {
               );
             })}
             
-            <div className={`pt-4 mt-2 border-t ${isScrolled ? "border-surface-container" : "border-white/10"}`}>
+            <div className={`pt-4 mt-2 border-t ${effectiveIsScrolled ? "border-surface-container" : "border-white/10"}`}>
               <Button
                 className={`w-full font-label-md text-label-md py-6 rounded-lg ambient-shadow-1 transition-all !text-white ${
-                  isScrolled ? "bg-primary hover:bg-primary-container" : "bg-primary hover:bg-primary/80 border border-white/20"
+                  effectiveIsScrolled ? "bg-primary hover:bg-primary-container" : "bg-primary hover:bg-primary/80 border border-white/20"
                 }`}
                 asChild
               >

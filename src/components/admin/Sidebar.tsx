@@ -9,13 +9,15 @@ import {
   FolderOpen, 
   Image as ImageIcon,
   BookOpen,
-  ListTodo
+  ListTodo,
+  Briefcase
 } from "lucide-react";
 import Image from "next/image";
 
 const MENU_ITEMS = [
   { name: "Dashboard", href: "/admin", icon: LayoutDashboard },
   { name: "Articles", href: "/admin/posts", icon: FileText },
+  { name: "Portfolios", href: "/admin/portfolios", icon: Briefcase },
   { name: "Categories", href: "/admin/categories", icon: FolderOpen },
   { name: "Tags", href: "/admin/tags", icon: Tags },
   { name: "Media", href: "/admin/media", icon: ImageIcon },

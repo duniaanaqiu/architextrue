@@ -7,15 +7,16 @@ import { useRouter } from "next/navigation";
 interface UploadMediaModalProps {
   isOpen: boolean;
   onClose: () => void;
+  onUploadComplete?: (url: string) => void;
 }
 
-export function UploadMediaModal({ isOpen, onClose }: UploadMediaModalProps) {
+export function UploadMediaModal({ isOpen, onClose, onUploadComplete }: UploadMediaModalProps) {
   const router = useRouter();
 
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+    <div className="fixed inset-0 z-[70] flex items-center justify-center p-4">
       {/* Backdrop */}
       <div 
         className="absolute inset-0 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200"
@@ -53,6 +54,9 @@ export function UploadMediaModal({ isOpen, onClose }: UploadMediaModalProps) {
               allowedContent: "Mendukung format gambar maksimal 4MB",
             }}
             onClientUploadComplete={(res) => {
+              if (res && res.length > 0) {
+                onUploadComplete?.(res[0].url);
+              }
               router.refresh();
               onClose();
             }}
