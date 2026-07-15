@@ -29,7 +29,7 @@ export function IntroductionSection() {
         </h2>
 
         <p className="text-base font-body text-on-surface-variant mb-stack-lg">
-          ARCHITEXTRUE lahir dari pemahaman bahwa sebuah rumah bukan sekadar bangunan, melainkan mahakarya kehidupan. Berbasis di Yogyakarta, kami memadukan kekokohan struktural dengan estetika tropis modern yang elegan.
+          ARCHITEXTRUE lahir dari pemahaman bahwa sebuah rumah bukan hanya sebatas bangunan fisik, melainkan mahakarya kehidupan. Berbasis di Yogyakarta, kami memadukan kekokohan struktural dengan estetika tropis modern yang elegan.
         </p>
 
         <p className="text-base font-body text-on-surface-variant mb-stack-lg">

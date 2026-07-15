@@ -5,9 +5,15 @@ import { type FAQItem } from '@/lib/data/faq';
 
 interface FAQSectionProps {
   data: FAQItem[];
+  title?: string;
+  subtitle?: string;
 }
 
-export function FAQSection({ data }: FAQSectionProps) {
+export function FAQSection({ 
+  data, 
+  title = "Pertanyaan yang Sering Diajukan", 
+  subtitle = "Temukan jawaban untuk pertanyaan umum seputar layanan dan proses kerja kami." 
+}: FAQSectionProps) {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   const toggleFAQ = (index: number) => {
@@ -19,10 +25,10 @@ export function FAQSection({ data }: FAQSectionProps) {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-display font-semibold mb-4">
-            Pertanyaan yang Sering Diajukan
+            {title}
           </h2>
           <p className="text-on-surface/80 max-w-2xl mx-auto font-body">
-            Temukan jawaban untuk pertanyaan umum seputar layanan dan proses kerja kami.
+            {subtitle}
           </p>
         </div>
 

@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import { generateMetadata, generateBreadcrumbSchema, generateFAQSchema } from "@/lib/utils";
+import { generateMetadata, generateBreadcrumbSchema, generateFAQSchema, generateServiceSchema, generateLocalBusinessSchema, generateWebPageSchema } from "@/lib/utils";
 import { StructuredData } from "@/components/shared/StructuredData";
 import { faqBangun } from "@/lib/data/faqBangun";
 
@@ -27,38 +27,27 @@ export default function JasaBangunRumahPage() {
 
   const faqSchema = generateFAQSchema(faqBangun);
 
-  const serviceSchema = {
-    "@context": "https://schema.org",
-    "@type": "Service",
-    "serviceType": "Jasa Bangun Rumah Mewah",
-    "name": "Jasa Bangun Rumah Mewah di Yogyakarta",
-    "description": "Layanan kontraktor profesional untuk pembangunan rumah mewah dari nol dengan material premium dan pengawasan ketat.",
-    "provider": {
-      "@type": "ConstructionBusiness",
-      "name": "ARCHITEXTRUE",
-      "url": "https://architextrue.com",
-    },
-    "areaServed": {
-      "@type": "State",
-      "name": "Yogyakarta",
-    },
-    "url": "https://architextrue.com/services/jasa-bangun-rumah",
-    "offers": {
-      "@type": "Offer",
-      "priceSpecification": {
-        "@type": "PriceSpecification",
-        "priceCurrency": "IDR",
-        "minPrice": "5000000",
-        "description": "Estimasi per meter persegi. Harga menyesuaikan kompleksitas desain dan spesifikasi material.",
-      }
-    }
-  };
+  const serviceSchema = generateServiceSchema({
+    name: "Jasa Bangun Rumah Mewah di Yogyakarta",
+    description: "Layanan kontraktor profesional untuk pembangunan rumah mewah dari nol dengan material premium dan pengawasan ketat.",
+    url: "/services/jasa-bangun-rumah",
+    serviceType: "Jasa Bangun Rumah Mewah"
+  });
+
+  const localBusinessSchema = generateLocalBusinessSchema();
+  const webpageSchema = generateWebPageSchema({
+    name: "Jasa Bangun Rumah Mewah di Yogyakarta | ARCHITEXTRUE",
+    description: "Layanan kontraktor bangun rumah baru dengan desain eksklusif, struktur kokoh, dan laporan transparan.",
+    url: "/services/jasa-bangun-rumah"
+  });
 
   return (
     <>
       <StructuredData data={breadcrumbSchema} />
       <StructuredData data={faqSchema} />
       <StructuredData data={serviceSchema} />
+      <StructuredData data={localBusinessSchema} />
+      <StructuredData data={webpageSchema} />
 
       <main>
         <HeroBangunSection />

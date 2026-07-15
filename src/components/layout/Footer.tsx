@@ -1,5 +1,8 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Phone, Mail, MapPin } from "lucide-react";
 import { WHATSAPP_NUMBER } from "@/config/company";
@@ -29,6 +32,12 @@ const contactInfo = {
 };
 
 export function Footer() {
+  const pathname = usePathname();
+
+  if (pathname.startsWith("/admin") || pathname === "/login") {
+    return null;
+  }
+
   return (
     <footer className="bg-primary text-on-primary w-full mt-auto">
       <div className="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12 px-margin-mobile md:px-margin-desktop py-section-gap container-max mx-auto">

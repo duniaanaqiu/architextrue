@@ -202,3 +202,16 @@ enum LeadStatus {
   CONVERTED
   ARCHIVED
 }
+model Media {
+  id        String   @id @default(cuid())
+  url       String   @unique
+  key       String   @unique // UploadThing file key
+  name      String
+  size      Int      // in bytes
+  type      String   // mime type (e.g., image/jpeg)
+  alt       String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("media")
+}

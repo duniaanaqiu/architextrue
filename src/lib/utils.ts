@@ -129,6 +129,35 @@ export function generateFAQSchema(faqs: Array<{ question: string; answer: string
   };
 }
 
+export function generateWebPageSchema({ name, description, url }: { name: string; description: string; url: string }) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": name,
+    "description": description,
+    "url": `${getBaseUrl()}${url}`,
+  }
+}
+
+export function generateServiceSchema({ name, description, url, serviceType }: { name: string; description: string; url: string, serviceType: string }) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "serviceType": serviceType,
+    "name": name,
+    "description": description,
+    "provider": {
+      "@type": "LocalBusiness",
+      "name": "ARCHITEXTRUE"
+    },
+    "areaServed": {
+      "@type": "State",
+      "name": "Yogyakarta"
+    },
+    "url": `${getBaseUrl()}${url}`
+  }
+}
+
 // Content utilities
 export function formatDate(date: string | Date) {
   return new Date(date).toLocaleDateString("id-ID", {

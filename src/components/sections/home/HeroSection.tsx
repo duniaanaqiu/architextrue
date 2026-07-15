@@ -8,7 +8,7 @@ import { WHATSAPP_NUMBER } from "@/config/company";
 
 export function HeroSection() {
   return (
-    <section className="relative w-full min-h-screen flex items-center justify-center pt-24 pb-20">
+    <section className="relative w-full min-h-[90vh] md:min-h-screen flex justify-center pt-32 md:pt-36 pb-20">
       {/* Background Image with Overlay */}
       <div className="absolute inset-0 z-0">
         <div className="bg-cover bg-center w-full h-full bg-[url('/assets/images/home/bg-hero-home.jpg')]">

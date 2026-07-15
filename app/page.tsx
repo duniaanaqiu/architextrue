@@ -7,7 +7,7 @@ import { TestimonialsSection } from "@/components/sections/home/TestimonialsSect
 import { FAQSection } from "@/components/sections/shared/FAQSection";
 import { CTASection } from "@/components/sections/shared/CTASection";
 import { StructuredData } from "@/components/shared/StructuredData";
-import { generateMetadata, generateLocalBusinessSchema, generateBreadcrumbSchema, generateFAQSchema } from "@/lib/utils";
+import { generateMetadata, generateLocalBusinessSchema, generateBreadcrumbSchema, generateFAQSchema, generateWebPageSchema } from "@/lib/utils";
 import { faqHome } from "@/lib/data/faq";
 
 export const metadata: Metadata = generateMetadata({
@@ -23,24 +23,11 @@ export default function HomePage() {
 
   const localBusinessSchema = generateLocalBusinessSchema();
 
-  const webpageSchema = {
-    "@context": "https://schema.org",
-    "@type": "WebPage",
-    "name": "ARCHITEXTRUE - Jasa Bangun Rumah Mewah di Yogyakarta",
-    "description": "Kontraktor spesialis rumah mewah dengan kualitas pengerjaan terbaik dan transparan di Yogyakarta.",
-    "url": "https://architextrue.com",
-    "breadcrumb": {
-      "@type": "BreadcrumbList",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Beranda",
-          "item": "https://architextrue.com",
-        },
-      ],
-    },
-  };
+  const webpageSchema = generateWebPageSchema({
+    name: "ARCHITEXTRUE - Jasa Bangun Rumah Mewah di Yogyakarta",
+    description: "Kontraktor spesialis rumah mewah dengan kualitas pengerjaan terbaik dan transparan di Yogyakarta.",
+    url: "/"
+  });
 
   const faqSchema = generateFAQSchema(faqHome);
 

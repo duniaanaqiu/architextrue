@@ -1,10 +1,8 @@
 import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { PrismaAdapter } from "@auth/prisma-adapter";
 import { prisma } from "@/lib/prisma";
 
 export const authOptions: NextAuthOptions = {
-  adapter: PrismaAdapter(prisma) as any,
   providers: [
     CredentialsProvider({
       name: "Credentials",
@@ -16,10 +14,16 @@ export const authOptions: NextAuthOptions = {
         if (!credentials?.username || !credentials?.password) {
           return null;
         }
-
         // Hardcoded admin auth as requested in the prompt
-        const adminUsername = process.env.ADMIN_USERNAME;
-        const adminPassword = process.env.ADMIN_PASSWORD;
+        const adminUsername = process.env.ADMIN_USERNAME?.trim();
+        const adminPassword = process.env.ADMIN_PASSWORD?.trim();
+        
+        console.log("DEBUG AUTH:", {
+          inputUser: credentials.username,
+          inputPass: credentials.password,
+          envUser: adminUsername,
+          envPass: adminPassword,
+        });
 
         if (
           credentials.username === adminUsername &&
@@ -57,6 +61,6 @@ export const authOptions: NextAuthOptions = {
     }
   },
   pages: {
-    signIn: "/admin/login",
+    signIn: "/login",
   },
 };

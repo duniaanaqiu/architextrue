@@ -1,4 +1,5 @@
 import { createUploadthing, type FileRouter } from "uploadthing/next";
+import { prisma } from "@/lib/prisma";
 
 const f = createUploadthing();
 
@@ -17,8 +18,22 @@ export const ourFileRouter = {
       console.log("Upload complete for userId:", metadata.uploadedBy);
       console.log("file url", file.url);
       
+      try {
+        await prisma.media.create({
+          data: {
+            url: file.url,
+            key: file.key,
+            name: file.name,
+            size: file.size,
+            type: "image", // uploadthing default for this route
+          }
+        });
+      } catch (e) {
+        console.error("Failed to save media to database", e);
+      }
+
       // Whatever is returned here is sent to the clientside `onClientUploadComplete` callback
-      return { uploadedBy: metadata.uploadedBy };
+      return { uploadedBy: metadata.uploadedBy, url: file.url };
     }),
 } satisfies FileRouter;
 

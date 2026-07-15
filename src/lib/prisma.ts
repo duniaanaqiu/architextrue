@@ -1,16 +1,14 @@
 import { PrismaClient } from "@prisma/client";
-import { Pool, neonConfig } from "@neondatabase/serverless";
 import { PrismaNeon } from "@prisma/adapter-neon";
-import ws from "ws";
 
-neonConfig.webSocketConstructor = ws;
-const connectionString = `${process.env.DATABASE_URL}`;
+const globalForPrisma = globalThis as unknown as { prisma_v6: PrismaClient };
 
-const pool = new Pool({ connectionString });
-const adapter = new PrismaNeon(pool as any);
+function getPrismaClient() {
+    const connectionString = process.env.DATABASE_URL || "postgresql://neondb_owner:npg_XsB9rm7MqgAJ@ep-patient-wave-aoi1j2a5.c-2.ap-southeast-1.aws.neon.tech/neondb?sslmode=require";
+    const adapter = new PrismaNeon({ connectionString });
+    return new PrismaClient({ adapter });
+}
 
-const globalForPrisma = globalThis as unknown as { prisma: PrismaClient };
+export const prisma = globalForPrisma.prisma_v6 || getPrismaClient();
 
-export const prisma = globalForPrisma.prisma || new PrismaClient({ adapter });
-
-if (process.env.NODE_ENV !== "production") globalForPrisma.prisma = prisma;
+if (process.env.NODE_ENV !== "production") globalForPrisma.prisma_v6 = prisma;
