@@ -35,18 +35,18 @@ export default async function AdminPostsPage() {
         </Link>
       </div>
 
-      <div className="bg-surface border border-surface-container rounded-2xl overflow-hidden shadow-sm">
+      <div className="bg-surface border border-outline-variant/50 rounded-2xl overflow-hidden shadow-sm">
         <div className="overflow-x-auto">
           <table className="w-full text-left font-body">
-            <thead className="bg-surface-container-low border-b border-surface-container text-on-surface-variant text-sm uppercase tracking-wider">
+            <thead className="bg-surface-container-lowest border-b border-outline-variant/50">
               <tr>
-                <th className="px-6 py-4 font-semibold">Title</th>
-                <th className="px-6 py-4 font-semibold hidden md:table-cell">Status</th>
-                <th className="px-6 py-4 font-semibold hidden lg:table-cell">Date</th>
-                <th className="px-6 py-4 font-semibold text-right">Actions</th>
+                <th className="px-6 py-4 text-sm font-semibold text-primary whitespace-nowrap">Title</th>
+                <th className="px-6 py-4 text-sm font-semibold text-primary whitespace-nowrap">Status</th>
+                <th className="px-6 py-4 text-sm font-semibold text-primary whitespace-nowrap">Date</th>
+                <th className="px-6 py-4 text-sm font-semibold text-primary whitespace-nowrap text-right">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-surface-container">
+            <tbody className="divide-y divide-outline-variant/30">
               {posts.length === 0 ? (
                 <tr>
                   <td colSpan={4} className="px-6 py-12 text-center">
@@ -57,14 +57,14 @@ export default async function AdminPostsPage() {
                 </tr>
               ) : (
                 posts.map((post) => (
-                  <tr key={post.id} className="hover:bg-surface-container-low/50 transition-colors">
+                  <tr key={post.id} className="hover:bg-surface-container-lowest/50 transition-colors">
                     <td className="px-6 py-4">
                       <div className="font-semibold text-primary mb-1 line-clamp-1">{post.title}</div>
                       <div className="text-sm text-on-surface-variant line-clamp-1 hidden sm:block">
                         {post.slug}
                       </div>
                     </td>
-                    <td className="px-6 py-4 hidden md:table-cell">
+                    <td className="px-6 py-4">
                       <span className={`px-3 py-1 text-xs font-semibold rounded-full ${
                         post.isPublished 
                           ? "bg-green-100 text-green-700" 
@@ -73,7 +73,7 @@ export default async function AdminPostsPage() {
                         {post.isPublished ? "Published" : "Draft"}
                       </span>
                     </td>
-                    <td className="px-6 py-4 hidden lg:table-cell text-sm text-on-surface-variant">
+                    <td className="px-6 py-4 text-sm text-on-surface-variant whitespace-nowrap">
                       {new Date(post.createdAt).toLocaleDateString("id-ID", {
                         year: "numeric",
                         month: "short",
@@ -86,7 +86,7 @@ export default async function AdminPostsPage() {
                           <Link 
                             href={`/blog/${post.slug}`}
                             target="_blank"
-                            className="p-2 text-on-surface-variant hover:text-primary transition-colors cursor-pointer"
+                            className="p-2 text-on-surface-variant hover:text-primary hover:bg-surface-container rounded-lg transition-colors cursor-pointer"
                             title="View Public Page"
                           >
                             <ExternalLink className="w-4 h-4" />
@@ -94,13 +94,13 @@ export default async function AdminPostsPage() {
                         )}
                         <Link 
                           href={`/admin/posts/${post.id}/edit`}
-                          className="p-2 text-on-surface-variant hover:text-primary transition-colors cursor-pointer"
+                          className="p-2 text-on-surface-variant hover:text-primary hover:bg-surface-container rounded-lg transition-colors cursor-pointer"
                           title="Edit Article"
                         >
                           <Edit className="w-4 h-4" />
                         </Link>
                         <button 
-                          className="p-2 text-on-surface-variant hover:text-error transition-colors cursor-pointer"
+                          className="p-2 text-on-surface-variant hover:text-error hover:bg-error/10 rounded-lg transition-colors cursor-pointer"
                           title="Delete Article"
                         >
                           <Trash2 className="w-4 h-4" />

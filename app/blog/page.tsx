@@ -1,6 +1,8 @@
 import { prisma } from "@/lib/prisma";
 import { BlogListClient } from "@/components/blog/BlogListClient";
 import { Metadata } from "next";
+import { StructuredData } from "@/components/shared/StructuredData";
+import { generateBreadcrumbSchema, generateWebPageSchema } from "@/lib/utils";
 
 export const metadata: Metadata = {
   title: "Blog & Insights - ARCHITEXTRUE",
@@ -37,10 +39,23 @@ export default async function BlogPage() {
     },
   });
 
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: "Blog & Insights", href: "/blog" },
+  ]);
+
+  const webpageSchema = generateWebPageSchema({
+    name: "Blog & Insights - ARCHITEXTRUE",
+    description: "Temukan artikel terbaru, inspirasi desain, dan tips membangun rumah dari para ahli di ARCHITEXTRUE.",
+    url: "/blog"
+  });
+
   return (
     <main className="min-h-screen bg-background pt-24 pb-20">
+      <StructuredData data={breadcrumbSchema} />
+      <StructuredData data={webpageSchema} />
+
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        
+
         {/* Hero Section for Blog */}
         <div className="text-center max-w-3xl mx-auto mb-16 pt-12">
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-primary mb-6 animate-fade-in-up">
@@ -53,7 +68,7 @@ export default async function BlogPage() {
 
         {/* Client Component for Search and Filters */}
         <BlogListClient initialPosts={posts} categories={categories} />
-        
+
       </div>
     </main>
   );

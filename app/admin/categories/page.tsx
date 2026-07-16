@@ -69,7 +69,7 @@ export default function CategoriesPage() {
 
   return (
     <div className="max-w-6xl mx-auto space-y-8">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
           <h1 className="font-display text-3xl font-bold text-primary mb-2 flex items-center gap-3">
             <FolderOpen className="w-8 h-8 text-tertiary" />
@@ -81,7 +81,7 @@ export default function CategoriesPage() {
         </div>
         <button
           onClick={handleCreate}
-          className="flex items-center gap-2 px-6 py-3 bg-primary text-on-primary rounded-xl font-body font-semibold hover:bg-primary/90 transition-colors cursor-pointer"
+          className="flex items-center gap-2 px-6 py-3 bg-primary text-on-primary rounded-xl font-body font-semibold hover:bg-primary/90 transition-colors cursor-pointer shrink-0"
         >
           <PlusCircle className="w-5 h-5" />
           Create New Category

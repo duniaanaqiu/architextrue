@@ -158,6 +158,50 @@ export function generateServiceSchema({ name, description, url, serviceType }: {
   }
 }
 
+export function generateArticleSchema({
+  title,
+  description,
+  url,
+  image,
+  datePublished,
+  dateModified,
+  authorName
+}: {
+  title: string;
+  description: string;
+  url: string;
+  image?: string | null;
+  datePublished: string;
+  dateModified?: string;
+  authorName?: string;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": title,
+    "description": description,
+    "image": image ? (image.startsWith('http') ? [image] : [`${getBaseUrl()}${image}`]) : undefined,
+    "datePublished": datePublished,
+    "dateModified": dateModified || datePublished,
+    "author": [{
+      "@type": "Person",
+      "name": authorName || "ARCHITEXTRUE Editor",
+    }],
+    "publisher": {
+      "@type": "Organization",
+      "name": "ARCHITEXTRUE",
+      "logo": {
+        "@type": "ImageObject",
+        "url": `${getBaseUrl()}/assets/images/layout/logo.svg`
+      }
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": `${getBaseUrl()}${url}`
+    }
+  }
+}
+
 // Content utilities
 export function formatDate(date: string | Date) {
   return new Date(date).toLocaleDateString("id-ID", {

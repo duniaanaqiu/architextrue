@@ -6,6 +6,8 @@ import { Calendar, User, ArrowLeft, ArrowRight, Tag } from "lucide-react";
 import { TableOfContents, HeadingItem } from "@/components/blog/TableOfContents";
 import { BlogCard } from "@/components/blog/BlogCard";
 import { Metadata } from "next";
+import { StructuredData } from "@/components/shared/StructuredData";
+import { generateBreadcrumbSchema, generateArticleSchema, generateWebPageSchema } from "@/lib/utils";
 
 // Helper to generate slug from text
 function slugify(text: string) {
@@ -107,8 +109,33 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
     ? new Intl.DateTimeFormat("id-ID", { day: "numeric", month: "long", year: "numeric" }).format(new Date(post.publishedAt))
     : "Baru saja";
 
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: "Blog", href: "/blog" },
+    { name: post.title, href: `/blog/${post.slug}` },
+  ]);
+
+  const articleSchema = generateArticleSchema({
+    title: post.seoTitle || post.title,
+    description: post.seoDescription || post.excerpt,
+    url: `/blog/${post.slug}`,
+    image: post.featuredImage,
+    datePublished: (post.publishedAt || post.createdAt).toISOString(),
+    dateModified: post.updatedAt.toISOString(),
+    authorName: post.author.name || "ARCHITEXTRUE Editor"
+  });
+
+  const webpageSchema = generateWebPageSchema({
+    name: `${post.seoTitle || post.title} - ARCHITEXTRUE`,
+    description: post.seoDescription || post.excerpt,
+    url: `/blog/${post.slug}`
+  });
+
   return (
     <main className="min-h-screen bg-background pt-24 pb-20">
+      <StructuredData data={breadcrumbSchema} />
+      <StructuredData data={articleSchema} />
+      <StructuredData data={webpageSchema} />
+      
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
         
         {/* Back Link */}
