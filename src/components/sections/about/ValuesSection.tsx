@@ -26,8 +26,8 @@ export function ValuesSection() {
       
       <div className="relative z-10 container-max mx-auto px-margin-mobile md:px-margin-desktop">
         <div className="text-center max-w-2xl mx-auto mb-12 lg:mb-16">
-          <h2 className="font-headline-lg text-headline-lg text-primary mb-4">Nilai-nilai Fundamental</h2>
-          <p className="font-body-lg text-body-lg text-on-surface-variant">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-bold text-primary mb-4">Nilai-nilai Fundamental</h2>
+          <p className="text-lg font-body text-on-surface-variant">
             Tiga pilar utama yang menjiwai setiap keputusan dan tindakan kami dalam mewujudkan mahakarya arsitektur.
           </p>
         </div>
@@ -41,10 +41,10 @@ export function ValuesSection() {
               <div className="bg-primary/5 w-16 h-16 rounded-2xl flex items-center justify-center mb-8 group-hover:bg-primary/10 group-hover:scale-110 transition-all duration-300">
                 {value.icon}
               </div>
-              <h3 className="font-headline-md text-headline-md text-primary mb-4">
+              <h3 className="text-2xl font-display font-bold text-primary mb-4">
                 {value.title}
               </h3>
-              <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+              <p className="text-base font-body text-on-surface-variant leading-relaxed">
                 {value.description}
               </p>
             </div>

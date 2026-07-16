@@ -8,13 +8,13 @@ export function TeamExpertiseSection() {
           
           {/* Text Content */}
           <div className="w-full lg:w-1/2 flex flex-col justify-center">
-            <h2 className="font-headline-lg text-headline-lg text-primary mb-6">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-bold text-primary mb-6">
               Di Balik Setiap Mahakarya
             </h2>
-            <p className="font-body-lg text-body-lg text-on-surface-variant leading-relaxed mb-6">
+            <p className="text-lg font-body text-on-surface-variant leading-relaxed mb-6">
               ARCHITEXTRUE didukung oleh tim profesional dengan pengalaman lebih dari 15 tahun dalam industri konstruksi hunian premium. 
             </p>
-            <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed mb-10">
+            <p className="text-base font-body text-on-surface-variant leading-relaxed mb-10">
               Setiap anggota tim kami adalah spesialis di bidangnya masing-masing—mulai dari arsitek visioner, insinyur struktur yang cermat, hingga seniman <i>finishing</i> yang berdedikasi. Kami bekerja dalam orkestrasi yang sempurna untuk memastikan tidak ada satu detail pun yang terlewat.
             </p>
             

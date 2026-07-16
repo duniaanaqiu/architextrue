@@ -26,23 +26,23 @@ export function StorySection() {
 
           {/* Text Content */}
           <div className="w-full lg:w-1/2 flex flex-col justify-center">
-            <h2 className="font-headline-lg text-headline-lg text-primary mb-8 lg:mb-12">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-bold text-primary mb-8 lg:mb-12">
               Fondasi Sebuah Kepercayaan
             </h2>
 
             <div className="flex flex-col gap-8">
               {/* Visi */}
               <div className="relative pl-6 border-l-2 border-primary">
-                <h3 className="font-headline-md text-headline-md text-primary mb-3">Visi Kami</h3>
-                <p className="font-body-lg text-body-lg text-on-surface-variant leading-relaxed">
+                <h3 className="text-2xl font-display font-bold text-primary mb-3">Visi Kami</h3>
+                <p className="text-lg font-body text-on-surface-variant leading-relaxed">
                   Menjadi kontraktor terdepan dalam pembangunan hunian mewah di Yogyakarta yang diakui atas inovasi, integritas tak tertandingi, dan standar kualitas pengerjaan kelas dunia.
                 </p>
               </div>
 
               {/* Misi */}
               <div className="relative pl-6 border-l-2 border-tertiary">
-                <h3 className="font-headline-md text-headline-md text-primary mb-3">Misi Kami</h3>
-                <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+                <h3 className="text-2xl font-display font-bold text-primary mb-3">Misi Kami</h3>
+                <p className="text-lg font-body text-on-surface-variant leading-relaxed">
                   Mewujudkan solusi konstruksi *end-to-end* yang presisi dan transparan. Kami berkomitmen mendampingi setiap langkah klien—dari goresan sketsa pertama hingga serah terima kunci—dengan dedikasi penuh pada kesempurnaan detail.
                 </p>
               </div>
