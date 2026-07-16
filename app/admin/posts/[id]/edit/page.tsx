@@ -42,7 +42,7 @@ export default async function EditPostPage({ params }: { params: Promise<{ id: s
       <PostFormClient 
         categories={categories} 
         tags={tags} 
-        authorId={session.user.id}
+        authorId={(session.user as any).id || "admin"}
         post={post}
       />
     </div>
