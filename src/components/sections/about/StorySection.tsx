@@ -43,7 +43,7 @@ export function StorySection() {
               <div className="relative pl-6 border-l-2 border-tertiary">
                 <h3 className="text-2xl font-display font-bold text-primary mb-3">Misi Kami</h3>
                 <p className="text-lg font-body text-on-surface-variant leading-relaxed">
-                  Mewujudkan solusi konstruksi *end-to-end* yang presisi dan transparan. Kami berkomitmen mendampingi setiap langkah klien—dari goresan sketsa pertama hingga serah terima kunci—dengan dedikasi penuh pada kesempurnaan detail.
+                  Mewujudkan solusi konstruksi end-to-end yang presisi dan transparan. Kami berkomitmen mendampingi setiap langkah klien dari goresan sketsa pertama hingga serah terima kunci dengan dedikasi penuh pada kesempurnaan detail.
                 </p>
               </div>
             </div>
