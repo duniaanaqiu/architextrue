@@ -25,10 +25,12 @@ interface PortfolioData {
 
 export async function createPortfolio(data: PortfolioData) {
   try {
+    const uniqueSlug = await generateUniquePortfolioSlug(data.slug);
+
     const portfolio = await prisma.portfolio.create({
       data: {
         title: data.title,
-        slug: data.slug,
+        slug: uniqueSlug,
         description: data.description,
         images: data.images,
         location: data.location,
@@ -55,7 +57,7 @@ export async function createPortfolio(data: PortfolioData) {
     return { success: true, portfolio };
   } catch (error: any) {
     console.error("Failed to create portfolio:", error);
-    if (error.code === 'P2002' && error.meta?.target?.includes('slug')) {
+    if (error.code === 'P2002') {
       return { success: false, error: "Slug URL already exists. Please choose a different one." };
     }
     return { success: false, error: "Failed to create portfolio." };
@@ -70,11 +72,13 @@ export async function updatePortfolio(id: string, data: PortfolioData) {
       include: { testimonial: true }
     });
 
+    const uniqueSlug = await generateUniquePortfolioSlug(data.slug, id);
+
     const portfolio = await prisma.portfolio.update({
       where: { id },
       data: {
         title: data.title,
-        slug: data.slug,
+        slug: uniqueSlug,
         description: data.description,
         images: data.images,
         location: data.location,
@@ -122,7 +126,7 @@ export async function updatePortfolio(id: string, data: PortfolioData) {
     return { success: true, portfolio };
   } catch (error: any) {
     console.error("Failed to update portfolio:", error);
-    if (error.code === 'P2002' && error.meta?.target?.includes('slug')) {
+    if (error.code === 'P2002') {
       return { success: false, error: "Slug URL already exists. Please choose a different one." };
     }
     return { success: false, error: "Failed to update portfolio." };
@@ -141,5 +145,23 @@ export async function deletePortfolio(id: string) {
   } catch (error: any) {
     console.error("Failed to delete portfolio:", error);
     return { success: false, error: "Failed to delete portfolio." };
+  }
+}
+
+async function generateUniquePortfolioSlug(baseSlug: string, excludeId?: string) {
+  let slug = baseSlug;
+  let counter = 1;
+
+  while (true) {
+    const existing = await prisma.portfolio.findUnique({
+      where: { slug }
+    });
+
+    if (!existing || (excludeId && existing.id === excludeId)) {
+      return slug;
+    }
+    
+    slug = `${baseSlug}-${counter}`;
+    counter++;
   }
 }
