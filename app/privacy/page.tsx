@@ -12,7 +12,7 @@ export default function PrivacyPolicyPage() {
         <h1 className="font-display text-display-md md:text-display-lg text-on-background mb-8">
           Privacy Policy
         </h1>
-        <div className="prose prose-lg dark:prose-invert prose-headings:font-display prose-headings:text-primary max-w-none text-on-background-variant">
+        <div className="prose prose-lg prose-headings:font-display prose-headings:text-primary max-w-none text-on-background-variant">
           <p>Terakhir Diperbarui: {new Date().toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
 
           <h2>1. Pendahuluan</h2>

@@ -18,7 +18,7 @@ export function CTASection() {
             href={`https://wa.me/${WHATSAPP_NUMBER}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="w-full sm:w-auto px-8 py-4 bg-primary text-on-primary hover:bg-primary/90 transition-colors duration-300 font-medium font-body rounded-full shadow-lg flex items-center justify-center gap-3"
+            className="w-full sm:w-auto px-8 py-4 bg-primary text-on-primary hover:bg-primary-container hover:-translate-y-1 hover:shadow-xl active:scale-95 transition-all duration-300 font-medium font-body rounded-full ambient-shadow-1 flex items-center justify-center gap-3"
           >
             <Image src="/assets/images/layout/wa.svg" alt="WhatsApp" width={24} height={24} />
             Hubungi Kami

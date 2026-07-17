@@ -15,7 +15,7 @@ export function IntroductionSection() {
             src="/assets/images/home/introduction.jpg"
             alt="A meticulously composed close-up photograph of architectural blueprints and a brass compass resting on a pristine white oak desk. Soft, diffused daylight filters through a nearby window, casting subtle, elegant shadows. The scene embodies a premium, minimalist light-mode aesthetic, conveying precision, professional reliability, and high-end design planning."
             fill
-            className="object-cover"
+            className="object-cover transition-transform duration-700 hover:scale-105"
             sizes="(max-width: 768px) 100vw, 50vw"
             priority={false}
           />

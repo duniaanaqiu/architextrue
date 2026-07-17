@@ -37,7 +37,7 @@ export function Header() {
   const [expandedMobileItem, setExpandedMobileItem] = useState<string | null>(null);
   const pathname = usePathname();
 
-  const isForceScrolled = pathname.startsWith("/blog");
+  const isForceScrolled = pathname.startsWith("/blog") || pathname.startsWith("/terms") || pathname.startsWith("/privacy");
   const effectiveIsScrolled = isScrolled || isForceScrolled;
 
   useEffect(() => {
@@ -132,7 +132,7 @@ export function Header() {
         <Button
           variant={effectiveIsScrolled ? "default" : "outline"}
           className={`hidden md:inline-flex font-label-md text-label-md px-6 py-3 rounded-lg transition-all ${effectiveIsScrolled
-            ? "bg-primary text-white ambient-shadow-1 hover:bg-primary-container hover:text-primary"
+            ? "bg-primary text-white ambient-shadow-1 hover:bg-primary-container hover:text-white"
             : "border-[1.5px] border-white text-white hover:bg-white/10 backdrop-blur-sm"
             }`}
           asChild

@@ -6,17 +6,17 @@ const scopes = [
   {
     title: "Renovasi Fasad & Tampilan",
     description: "Ubah total wajah hunian Anda. Dari desain lama yang membosankan menjadi fasad modern tropis, minimalis, atau klasik elegan tanpa harus merobohkan struktur utama.",
-    image: "/assets/images/home/services2.jpg",
+    image: "/assets/images/jasa-renovasi-rumah/renovasi-fasad.jpg",
   },
   {
     title: "Suntik Struktur & Penambahan Lantai",
     description: "Keluarga bertambah tapi lahan terbatas? Kami melayani penambahan ruang secara vertikal dengan penguatan pondasi (suntik struktur) yang dijamin aman dan kokoh.",
-    image: "/assets/images/home/introduction.jpg",
+    image: "/assets/images/jasa-renovasi-rumah/suntik-struktur.jpg",
   },
   {
     title: "Renovasi Total (Major Makeover)",
     description: "Perombakan layout besar-besaran. Mengubah susunan denah, membongkar dinding untuk open-space, hingga pembaharuan seluruh instalasi MEP (plumbing & kelistrikan).",
-    image: "/assets/images/home/services1.jpg",
+    image: "/assets/images/jasa-renovasi-rumah/renovasi-total.jpg",
   },
 ];
 
@@ -35,8 +35,8 @@ export function ScopeRenovasiSection() {
 
         <div className="space-y-12">
           {scopes.map((scope, index) => (
-            <div 
-              key={index} 
+            <div
+              key={index}
               className={`flex flex-col ${index % 2 !== 0 ? 'md:flex-row-reverse' : 'md:flex-row'} gap-8 items-center`}
             >
               <div className="w-full md:w-1/2">
@@ -49,7 +49,7 @@ export function ScopeRenovasiSection() {
                   />
                 </div>
               </div>
-              
+
               <div className="w-full md:w-1/2 flex flex-col justify-center px-4 md:px-8">
                 <h3 className="text-2xl md:text-3xl font-display font-semibold text-on-surface mb-4">
                   {scope.title}

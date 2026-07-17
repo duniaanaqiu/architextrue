@@ -38,7 +38,7 @@ export function BenefitSection() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {benefits.map((benefit, index) => (
-            <div key={index} className="bg-surface p-8 rounded-2xl shadow-sm border border-on-surface/5 hover:border-primary/20 transition-colors duration-300">
+            <div key={index} className="bg-surface-container p-8 rounded-2xl border border-on-surface/5 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:border-primary/20">
               <div className="w-14 h-14 bg-primary/10 rounded-xl flex items-center justify-center mb-6 text-primary">
                 <span className="material-symbols-outlined text-3xl">{benefit.icon}</span>
               </div>
