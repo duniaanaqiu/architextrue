@@ -14,7 +14,7 @@ export function TeamExpertiseSection() {
             <p className="text-lg font-body text-on-surface-variant leading-relaxed mb-6">
               ARCHITEXTRUE didukung oleh tim profesional dengan pengalaman lebih dari 15 tahun dalam industri konstruksi hunian premium. 
             </p>
-            <p className="text-base font-body text-on-surface-variant leading-relaxed mb-10">
+            <p className="text-lg font-body text-on-surface-variant leading-relaxed mb-10">
               Setiap anggota tim kami adalah spesialis di bidangnya masing-masing—mulai dari arsitek visioner, insinyur struktur yang cermat, hingga seniman <i>finishing</i> yang berdedikasi. Kami bekerja dalam orkestrasi yang sempurna untuk memastikan tidak ada satu detail pun yang terlewat.
             </p>
             
