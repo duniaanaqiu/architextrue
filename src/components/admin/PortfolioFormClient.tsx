@@ -61,6 +61,8 @@ export function PortfolioFormClient({ portfolio }: PortfolioFormClientProps) {
   const [isMediaPickerOpen, setIsMediaPickerOpen] = useState(false);
   const [isTestiMediaPickerOpen, setIsTestiMediaPickerOpen] = useState(false);
   const [isServiceDropdownOpen, setIsServiceDropdownOpen] = useState(false);
+  
+  const [fieldErrors, setFieldErrors] = useState<Record<string, boolean>>({});
 
   useEffect(() => {
     if (portfolio) {
@@ -102,18 +104,31 @@ export function PortfolioFormClient({ portfolio }: PortfolioFormClientProps) {
   };
 
   const handleSubmit = async () => {
-    if (!title || !slug || !description || !location || !area || !duration || !completedAt || images.length === 0) {
-      setError("Please fill in all required fields and add at least one image.");
+    const errors: Record<string, boolean> = {};
+    if (!title) errors.title = true;
+    if (!slug) errors.slug = true;
+    if (!description || description === '<p></p>') errors.description = true;
+    if (images.length === 0) errors.images = true;
+    if (!location) errors.location = true;
+    if (!area) errors.area = true;
+    if (!duration) errors.duration = true;
+    if (!completedAt) errors.completedAt = true;
+
+    if (hasTestimonial) {
+      if (!testiName) errors.testiName = true;
+      if (!testiRole) errors.testiRole = true;
+      if (!testiContent) errors.testiContent = true;
+      if (!testiRating) errors.testiRating = true;
+    }
+
+    if (Object.keys(errors).length > 0) {
+      setFieldErrors(errors);
+      setError("Please fill in all required fields marked in red.");
       window.scrollTo({ top: 0, behavior: 'smooth' });
       return;
     }
 
-    if (hasTestimonial && (!testiName || !testiRole || !testiContent)) {
-      setError("Please fill in all testimonial fields if you enable testimonial.");
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-      return;
-    }
-
+    setFieldErrors({});
     setIsSubmitting(true);
     setError("");
 
@@ -197,7 +212,7 @@ export function PortfolioFormClient({ portfolio }: PortfolioFormClientProps) {
               value={title}
               onChange={handleTitleChange}
               placeholder="Project Title..."
-              className="w-full text-4xl font-display font-bold text-primary placeholder:text-outline-variant/50 focus:outline-none bg-transparent"
+              className={`w-full text-4xl font-display font-bold placeholder:text-outline-variant/50 focus:outline-none bg-transparent ${fieldErrors.title ? 'text-error placeholder:text-error/50' : 'text-primary'}`}
             />
             
             <div className="flex flex-col mt-4">
@@ -209,7 +224,7 @@ export function PortfolioFormClient({ portfolio }: PortfolioFormClientProps) {
                   value={slug}
                   onChange={(e) => setSlug(e.target.value)}
                   placeholder="project-slug"
-                  className="flex-1 focus:outline-none bg-transparent text-primary ml-1 placeholder:text-outline-variant"
+                  className={`flex-1 focus:outline-none bg-transparent ml-1 placeholder:text-outline-variant ${fieldErrors.slug ? 'text-error border-b border-error' : 'text-primary'}`}
                 />
               </div>
             </div>
@@ -217,8 +232,8 @@ export function PortfolioFormClient({ portfolio }: PortfolioFormClientProps) {
 
           {/* CONTENT / DESCRIPTION */}
           <div className="bg-surface border border-surface-container rounded-2xl p-6">
-            <h3 className="font-semibold text-primary mb-4">Project Description</h3>
-            <div className="min-h-[400px]">
+            <h3 className={`font-semibold mb-4 ${fieldErrors.description ? 'text-error' : 'text-primary'}`}>Project Description</h3>
+            <div className={`min-h-[400px] rounded-lg ${fieldErrors.description ? 'border border-error' : ''}`}>
               <Editor content={description} onChange={setDescription} />
             </div>
           </div>
@@ -226,7 +241,7 @@ export function PortfolioFormClient({ portfolio }: PortfolioFormClientProps) {
           {/* GALLERY */}
           <div className="bg-surface border border-surface-container rounded-2xl p-6">
             <div className="flex justify-between items-center mb-4">
-              <h3 className="font-semibold text-primary">Project Gallery</h3>
+              <h3 className={`font-semibold ${fieldErrors.images ? 'text-error' : 'text-primary'}`}>Project Gallery</h3>
               <button
                 type="button"
                 onClick={() => setIsMediaPickerOpen(true)}
@@ -239,7 +254,7 @@ export function PortfolioFormClient({ portfolio }: PortfolioFormClientProps) {
             {images.length === 0 ? (
               <div className="flex flex-col">
                 <div 
-                  className="border-2 border-dashed border-outline-variant/50 hover:border-primary/50 hover:bg-primary/5 rounded-xl p-6 flex flex-col items-center justify-center text-center transition-all cursor-pointer group"
+                  className={`border-2 border-dashed rounded-xl p-6 flex flex-col items-center justify-center text-center transition-all cursor-pointer group ${fieldErrors.images ? 'border-error/50 hover:border-error bg-error/5' : 'border-outline-variant/50 hover:border-primary/50 hover:bg-primary/5'}`}
                   onClick={() => setIsMediaPickerOpen(true)}
                 >
                   <div className="w-12 h-12 rounded-full bg-surface-container group-hover:bg-primary/10 group-hover:text-primary flex items-center justify-center text-on-surface-variant transition-colors mb-3">
@@ -286,22 +301,22 @@ export function PortfolioFormClient({ portfolio }: PortfolioFormClientProps) {
               <div className="space-y-4 animate-in fade-in slide-in-from-top-4 duration-300">
                 <div className="grid grid-cols-2 gap-4">
                   <div className="flex flex-col">
-                    <label className="text-sm font-semibold text-primary mb-1">Client Name</label>
-                    <input type="text" value={testiName} onChange={e => setTestiName(e.target.value)} className="p-2 border border-surface-container rounded-lg focus:outline-none focus:border-primary text-sm bg-surface-container-lowest" />
+                    <label className={`text-sm font-semibold mb-1 ${fieldErrors.testiName ? 'text-error' : 'text-primary'}`}>Client Name</label>
+                    <input type="text" value={testiName} onChange={e => setTestiName(e.target.value)} className={`p-2 border rounded-lg focus:outline-none text-sm bg-surface-container-lowest ${fieldErrors.testiName ? 'border-error focus:border-error' : 'border-surface-container focus:border-primary'}`} />
                   </div>
                   <div className="flex flex-col">
-                    <label className="text-sm font-semibold text-primary mb-1">Role (Contoh: Pemilik Rumah)</label>
-                    <input type="text" value={testiRole} onChange={e => setTestiRole(e.target.value)} className="p-2 border border-surface-container rounded-lg focus:outline-none focus:border-primary text-sm bg-surface-container-lowest" />
+                    <label className={`text-sm font-semibold mb-1 ${fieldErrors.testiRole ? 'text-error' : 'text-primary'}`}>Role (Contoh: Pemilik Rumah)</label>
+                    <input type="text" value={testiRole} onChange={e => setTestiRole(e.target.value)} className={`p-2 border rounded-lg focus:outline-none text-sm bg-surface-container-lowest ${fieldErrors.testiRole ? 'border-error focus:border-error' : 'border-surface-container focus:border-primary'}`} />
                   </div>
                 </div>
                 <div className="flex flex-col">
-                  <label className="text-sm font-semibold text-primary mb-1">Feedback / Message</label>
-                  <textarea value={testiContent} onChange={e => setTestiContent(e.target.value)} className="p-2 border border-surface-container rounded-lg focus:outline-none focus:border-primary text-sm bg-surface-container-lowest min-h-[100px]" />
+                  <label className={`text-sm font-semibold mb-1 ${fieldErrors.testiContent ? 'text-error' : 'text-primary'}`}>Feedback / Message</label>
+                  <textarea value={testiContent} onChange={e => setTestiContent(e.target.value)} className={`p-2 border rounded-lg focus:outline-none text-sm bg-surface-container-lowest min-h-[100px] ${fieldErrors.testiContent ? 'border-error focus:border-error' : 'border-surface-container focus:border-primary'}`} />
                 </div>
                 <div className="grid grid-cols-2 gap-4">
                   <div className="flex flex-col">
-                    <label className="text-sm font-semibold text-primary mb-1">Rating (1-5)</label>
-                    <input type="number" min="1" max="5" value={testiRating} onChange={e => setTestiRating(e.target.value)} className="p-2 border border-surface-container rounded-lg focus:outline-none focus:border-primary text-sm bg-surface-container-lowest" />
+                    <label className={`text-sm font-semibold mb-1 ${fieldErrors.testiRating ? 'text-error' : 'text-primary'}`}>Rating (1-5)</label>
+                    <input type="number" min="1" max="5" value={testiRating} onChange={e => setTestiRating(e.target.value)} className={`p-2 border rounded-lg focus:outline-none text-sm bg-surface-container-lowest ${fieldErrors.testiRating ? 'border-error focus:border-error' : 'border-surface-container focus:border-primary'}`} />
                   </div>
                   <div className="flex flex-col">
                     <label className="text-sm font-semibold text-primary mb-1">Client Avatar URL (Optional)</label>
@@ -376,23 +391,23 @@ export function PortfolioFormClient({ portfolio }: PortfolioFormClientProps) {
               </div>
 
               <div className="flex flex-col">
-                <label className="text-sm font-semibold text-primary mb-1 flex items-center gap-1.5"><MapPin className="w-4 h-4" /> Location</label>
-                <input type="text" value={location} onChange={e => setLocation(e.target.value)} placeholder="Contoh: Sleman, Yogyakarta" className="p-2.5 border border-surface-container rounded-lg focus:outline-none focus:border-primary text-sm bg-surface-container-lowest" />
+                <label className={`text-sm font-semibold mb-1 flex items-center gap-1.5 ${fieldErrors.location ? 'text-error' : 'text-primary'}`}><MapPin className="w-4 h-4" /> Location</label>
+                <input type="text" value={location} onChange={e => setLocation(e.target.value)} placeholder="Contoh: Sleman, Yogyakarta" className={`p-2.5 border rounded-lg focus:outline-none text-sm bg-surface-container-lowest ${fieldErrors.location ? 'border-error focus:border-error' : 'border-surface-container focus:border-primary'}`} />
               </div>
 
               <div className="flex flex-col">
-                <label className="text-sm font-semibold text-primary mb-1 flex items-center gap-1.5">Luas Area (m²)</label>
-                <input type="number" value={area} onChange={e => setArea(e.target.value)} placeholder="Contoh: 150" className="p-2.5 border border-surface-container rounded-lg focus:outline-none focus:border-primary text-sm bg-surface-container-lowest" />
+                <label className={`text-sm font-semibold mb-1 flex items-center gap-1.5 ${fieldErrors.area ? 'text-error' : 'text-primary'}`}>Luas Area (m²)</label>
+                <input type="number" value={area} onChange={e => setArea(e.target.value)} placeholder="Contoh: 150" className={`p-2.5 border rounded-lg focus:outline-none text-sm bg-surface-container-lowest ${fieldErrors.area ? 'border-error focus:border-error' : 'border-surface-container focus:border-primary'}`} />
               </div>
 
               <div className="flex flex-col">
-                <label className="text-sm font-semibold text-primary mb-1 flex items-center gap-1.5"><Clock className="w-4 h-4" /> Duration</label>
-                <input type="text" value={duration} onChange={e => setDuration(e.target.value)} placeholder="Contoh: 6 bulan" className="p-2.5 border border-surface-container rounded-lg focus:outline-none focus:border-primary text-sm bg-surface-container-lowest" />
+                <label className={`text-sm font-semibold mb-1 flex items-center gap-1.5 ${fieldErrors.duration ? 'text-error' : 'text-primary'}`}><Clock className="w-4 h-4" /> Duration</label>
+                <input type="text" value={duration} onChange={e => setDuration(e.target.value)} placeholder="Contoh: 6 bulan" className={`p-2.5 border rounded-lg focus:outline-none text-sm bg-surface-container-lowest ${fieldErrors.duration ? 'border-error focus:border-error' : 'border-surface-container focus:border-primary'}`} />
               </div>
 
               <div className="flex flex-col">
-                <label className="text-sm font-semibold text-primary mb-1 flex items-center gap-1.5"><CalendarIcon className="w-4 h-4" /> Completed Date</label>
-                <input type="date" value={completedAt} onChange={e => setCompletedAt(e.target.value)} className="p-2.5 border border-surface-container rounded-lg focus:outline-none focus:border-primary text-sm bg-surface-container-lowest" />
+                <label className={`text-sm font-semibold mb-1 flex items-center gap-1.5 ${fieldErrors.completedAt ? 'text-error' : 'text-primary'}`}><CalendarIcon className="w-4 h-4" /> Completed Date</label>
+                <input type="date" value={completedAt} onChange={e => setCompletedAt(e.target.value)} className={`p-2.5 border rounded-lg focus:outline-none text-sm bg-surface-container-lowest ${fieldErrors.completedAt ? 'border-error focus:border-error' : 'border-surface-container focus:border-primary'}`} />
               </div>
             </div>
           </div>

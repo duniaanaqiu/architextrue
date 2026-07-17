@@ -74,6 +74,7 @@ export function PostFormClient({ categories, tags, authorId, post }: PostFormCli
   const [isGenerating, setIsGenerating] = useState(false);
   const [isGeneratingMeta, setIsGeneratingMeta] = useState(false);
   const [error, setError] = useState("");
+  const [fieldErrors, setFieldErrors] = useState<Record<string, boolean>>({});
 
   const [isCategoryDropdownOpen, setIsCategoryDropdownOpen] = useState(false);
 
@@ -152,12 +153,20 @@ export function PostFormClient({ categories, tags, authorId, post }: PostFormCli
   };
 
   const handleSubmit = async (isPublished: boolean) => {
-    if (!title || !slug || !content || !categoryId) {
+    const errors: Record<string, boolean> = {};
+    if (!title) errors.title = true;
+    if (!slug) errors.slug = true;
+    if (!content || content === '<p></p>') errors.content = true;
+    if (!categoryId) errors.categoryId = true;
+
+    if (Object.keys(errors).length > 0) {
+      setFieldErrors(errors);
       setError("Please fill in all required fields (Title, Slug, Category, Content).");
       window.scrollTo({ top: 0, behavior: 'smooth' });
       return;
     }
 
+    setFieldErrors({});
     setIsSubmitting(true);
     setError("");
 
@@ -244,7 +253,7 @@ export function PostFormClient({ categories, tags, authorId, post }: PostFormCli
               value={title}
               onChange={handleTitleChange}
               placeholder="Article Title..."
-              className="w-full text-4xl font-display font-bold text-primary placeholder:text-outline-variant/50 focus:outline-none bg-transparent"
+              className={`w-full text-4xl font-display font-bold placeholder:text-outline-variant/50 focus:outline-none bg-transparent ${fieldErrors.title ? 'text-error placeholder:text-error/50' : 'text-primary'}`}
             />
             
             <div className="flex flex-col mt-4">
@@ -255,15 +264,17 @@ export function PostFormClient({ categories, tags, authorId, post }: PostFormCli
                   type="text"
                   value={slug}
                   onChange={(e) => setSlug(e.target.value)}
-                  className="flex-1 bg-transparent border-b border-surface-container focus:border-primary focus:outline-none text-primary pb-1 ml-1"
+                  className={`flex-1 bg-transparent border-b focus:outline-none pb-1 ml-1 ${fieldErrors.slug ? 'text-error border-error' : 'border-surface-container focus:border-primary text-primary'}`}
                 />
               </div>
             </div>
           </div>
 
           <div className="bg-surface border border-surface-container rounded-2xl p-6">
-            <label className="text-sm font-semibold text-primary mb-2 block">Content</label>
-            <Editor content={content} onChange={setContent} />
+            <label className={`text-sm font-semibold mb-2 block ${fieldErrors.content ? 'text-error' : 'text-primary'}`}>Content <span className="text-error">*</span></label>
+            <div className={`rounded-lg ${fieldErrors.content ? 'border border-error' : ''}`}>
+              <Editor content={content} onChange={setContent} />
+            </div>
           </div>
         </div>
 
@@ -367,7 +378,7 @@ export function PostFormClient({ categories, tags, authorId, post }: PostFormCli
 
           <div className="bg-surface border border-surface-container rounded-2xl p-6">
             <div className="flex justify-between items-center mb-4">
-              <h3 className="font-semibold text-primary">Category <span className="text-error">*</span></h3>
+              <h3 className={`font-semibold ${fieldErrors.categoryId ? 'text-error' : 'text-primary'}`}>Category <span className="text-error">*</span></h3>
               <button
                 type="button"
                 onClick={() => setIsCategoryModalOpen(true)}
@@ -379,7 +390,7 @@ export function PostFormClient({ categories, tags, authorId, post }: PostFormCli
             </div>
             <div className="relative group">
               <div 
-                className="w-full p-3 bg-surface-container-lowest border border-outline-variant/50 rounded-xl font-body text-primary cursor-pointer flex justify-between items-center hover:border-primary/50 transition-colors"
+                className={`w-full p-3 bg-surface-container-lowest border rounded-xl font-body cursor-pointer flex justify-between items-center transition-colors ${fieldErrors.categoryId ? 'border-error text-error' : 'border-outline-variant/50 text-primary hover:border-primary/50'}`}
                 onClick={() => setIsCategoryDropdownOpen(!isCategoryDropdownOpen)}
               >
                 <span>
