@@ -7,14 +7,14 @@ const featuredProjects = [
     id: 1,
     title: "Villa Tropis Modern",
     location: "Sleman, Yogyakarta",
-    image: "/assets/images/home/services1.jpg",
+    image: "/assets/images/jasa-bangun-rumah/Villa-Tropis-Modern.jpg",
     specs: "Luas Bangunan: 450 m² | 2 Lantai | Kolam Renang"
   },
   {
     id: 2,
     title: "Classic Contemporary House",
     location: "Bantul, Yogyakarta",
-    image: "/assets/images/home/bg-hero-home.jpg",
+    image: "/assets/images/jasa-bangun-rumah/Classic-Contemporary-House.jpg",
     specs: "Luas Bangunan: 600 m² | 3 Lantai | Smart Home"
   }
 ];
