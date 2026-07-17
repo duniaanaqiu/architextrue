@@ -10,8 +10,15 @@ export function ProjectFilterGridSection({ portfolios }: { portfolios: Portfolio
   const [activeCategory, setActiveCategory] = useState<"Semua" | "Bangun dari Nol" | "Renovasi">("Semua");
   const [visibleCount, setVisibleCount] = useState(6); // Default 6 items
 
-  const filteredProjects = portfolios.filter(project => {
-    if (activeCategory === "Semua") return true;
+  const filteredProjects = portfolios.filter((project, index) => {
+    if (activeCategory === "Semua") {
+      // Jika total portofolio > 6, skip 6 pertama karena sudah tampil di Featured section atasnya.
+      // Jika <= 6, tetap tampilkan agar grid tidak kosong.
+      if (portfolios.length > 6) {
+        return index >= 6;
+      }
+      return true;
+    }
     if (activeCategory === "Bangun dari Nol") return project.serviceType === "JASA_BANGUN_RUMAH";
     if (activeCategory === "Renovasi") return project.serviceType === "JASA_RENOVASI_RUMAH";
     return true;
