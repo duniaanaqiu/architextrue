@@ -88,11 +88,29 @@ export default function RootLayout({
       className={`${playfairDisplay.variable} ${sourceSans3.variable} h-full antialiased`}
     >
       <head>
-        {/* Material Symbols for icons */}
+        {/* Preconnect to Google Fonts for Material Symbols */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        
+        {/* Material Symbols for icons - loaded asynchronously */}
         <link
-          rel="stylesheet"
+          rel="preload"
+          as="style"
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
         />
+        <link
+          rel="stylesheet"
+          media="print"
+          // @ts-ignore
+          onLoad="this.media='all'"
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        />
+        <noscript>
+          <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+          />
+        </noscript>
       </head>
       <body className="min-h-screen flex flex-col bg-background text-on-background font-body-md">
         <OrganizationSchema />
