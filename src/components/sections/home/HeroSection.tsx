@@ -11,12 +11,14 @@ export function HeroSection() {
     <section className="relative w-full min-h-[90vh] md:min-h-screen flex justify-center pt-32 md:pt-36 pb-20">
       {/* Background Image with Overlay */}
       <div className="absolute inset-0 z-0">
-        <div className="bg-cover bg-center w-full h-full bg-[url('/assets/images/home/bg-hero-home.jpg')]">
-          {/* Image alt text for accessibility */}
-          <span className="sr-only">
-            A breathtaking, wide-angle architectural photograph of a luxurious modern tropical home in Indonesia during golden hour. The design features expansive glass walls, natural timber cladding, and a sleek flat roof, blending seamlessly with lush tropical landscaping.
-          </span>
-        </div>
+        <Image 
+          src="/assets/images/home/bg-hero-home.jpg"
+          alt="A breathtaking, wide-angle architectural photograph of a luxurious modern tropical home in Indonesia during golden hour. The design features expansive glass walls, natural timber cladding, and a sleek flat roof, blending seamlessly with lush tropical landscaping."
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover object-center"
+        />
         <div className="absolute inset-0 bg-primary/40 mix-blend-multiply"></div>
         <div className="absolute bottom-0 w-full h-32 md:h-48 bg-gradient-to-t from-background from-15% via-background/60 via-50% to-transparent"></div>
       </div>

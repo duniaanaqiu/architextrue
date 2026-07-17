@@ -44,20 +44,11 @@ export const metadata: Metadata = {
     title: "ARCHITEXTRUE - Jasa Bangun Rumah Mewah di Yogyakarta",
     description: "Kontraktor spesialis rumah mewah dengan kualitas pengerjaan terbaik dan transparan di Yogyakarta.",
     siteName: "ARCHITEXTRUE",
-    images: [
-      {
-        url: `${BASE_URL}/og-image.png`,
-        width: 1200,
-        height: 630,
-        alt: "ARCHITEXTRUE - Jasa Bangun Rumah Mewah di Yogyakarta",
-      },
-    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "ARCHITEXTRUE - Jasa Bangun Rumah Mewah di Yogyakarta",
     description: "Kontraktor spesialis rumah mewah dengan kualitas pengerjaan terbaik dan transparan di Yogyakarta.",
-    images: [`${BASE_URL}/twitter-image.png`],
     creator: "@architextrue",
   },
   robots: {
@@ -97,25 +88,10 @@ export default function RootLayout({
       className={`${playfairDisplay.variable} ${sourceSans3.variable} h-full antialiased`}
     >
       <head>
-        {/* Font preloads */}
-        <link
-          rel="preconnect"
-          href="https://fonts.googleapis.com"
-        />
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin="anonymous"
-        />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Source+Sans+3:wght@400;500;600&display=swap"
-          rel="stylesheet"
-        />
-
         {/* Material Symbols for icons */}
         <link
           rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=block"
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
         />
       </head>
       <body className="min-h-screen flex flex-col bg-background text-on-background font-body-md">

@@ -37,7 +37,7 @@ export function FeaturedGallerySection({ portfolios }: { portfolios: Portfolio[]
             
             {/* Text Content */}
             <div className="absolute bottom-0 left-0 w-full p-6 flex flex-col justify-end translate-y-2 md:translate-y-8 group-hover:translate-y-0 transition-transform duration-500">
-              <span className="text-secondary font-label-md text-sm md:text-base mb-1 opacity-100 md:opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
+              <span className="inline-flex items-center justify-center bg-[#CCA730] text-[#041632] font-label-sm text-xs md:text-sm font-bold px-3 py-1 rounded-full mb-3 opacity-100 md:opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100 shadow-md tracking-wide uppercase w-fit">
                 {project.serviceType === "JASA_BANGUN_RUMAH" ? "Bangun Rumah" : "Renovasi"}
               </span>
               <h3 className="text-white font-display text-xl md:text-3xl font-semibold leading-tight line-clamp-1 group-hover:line-clamp-none drop-shadow-md">
