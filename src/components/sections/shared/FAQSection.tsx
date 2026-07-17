@@ -2,6 +2,8 @@
 
 import { useState } from 'react';
 import { type FAQItem } from '@/lib/data/faq';
+import Image from 'next/image';
+import { ChevronDown } from 'lucide-react';
 
 interface FAQSectionProps {
   data: FAQItem[];
@@ -47,12 +49,13 @@ export function FAQSection({
                   className="w-full text-left px-6 py-5 flex justify-between items-center focus:outline-none cursor-pointer"
                   aria-expanded={isOpen}
                 >
-                  <span className="font-display font-medium text-lg text-on-surface pr-8">
-                    {faq.question}
-                  </span>
-                  <span className={`material-symbols-outlined transition-transform duration-300 text-primary ${isOpen ? 'rotate-180' : ''}`}>
-                    expand_more
-                  </span>
+                  <div className="flex items-center gap-4 pr-8">
+                    <Image src="/assets/images/layout/faq.svg" alt="FAQ" width={24} height={24} className="flex-shrink-0" />
+                    <span className="font-display font-medium text-lg text-on-surface">
+                      {faq.question}
+                    </span>
+                  </div>
+                  <ChevronDown className={`transition-transform duration-300 text-primary flex-shrink-0 ${isOpen ? 'rotate-180' : ''}`} />
                 </button>
                 
                 <div 
@@ -60,7 +63,7 @@ export function FAQSection({
                     isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
                   }`}
                 >
-                  <div className="px-6 pb-6 pt-0 font-body text-on-surface/80">
+                  <div className="px-6 pb-6 pt-0 font-body text-on-surface/80 pl-14">
                     {faq.answer}
                   </div>
                 </div>

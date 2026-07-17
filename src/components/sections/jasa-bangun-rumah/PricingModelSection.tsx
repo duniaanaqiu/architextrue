@@ -1,5 +1,6 @@
-
 import Link from 'next/link';
+import { ArrowRight } from 'lucide-react';
+import Image from 'next/image';
 
 export function PricingModelSection() {
   return (
@@ -34,7 +35,7 @@ export function PricingModelSection() {
             <div className="w-full md:w-1/2 space-y-6">
               <div className="flex gap-4 items-start">
                 <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center flex-shrink-0 mt-1">
-                  <span className="material-symbols-outlined text-white">receipt_long</span>
+                  <Image src="/assets/images/layout/rab.svg" alt="RAB" width={20} height={20} className="text-white" />
                 </div>
                 <div>
                   <h4 className="text-xl font-display font-medium mb-2">RAB Terperinci</h4>
@@ -46,7 +47,7 @@ export function PricingModelSection() {
               
               <div className="flex gap-4 items-start">
                 <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center flex-shrink-0 mt-1">
-                  <span className="material-symbols-outlined text-white">payments</span>
+                  <Image src="/assets/images/layout/pembayaran.svg" alt="Pembayaran" width={20} height={20} className="text-white" />
                 </div>
                 <div>
                   <h4 className="text-xl font-display font-medium mb-2">Pembayaran Termin Berbasis Progres</h4>
@@ -59,7 +60,7 @@ export function PricingModelSection() {
               <div className="pt-4">
                 <Link href="/konsultasi" className="text-white hover:text-white/80 font-body font-medium flex items-center gap-2 transition-colors">
                   Simulasikan biaya proyek Anda sekarang 
-                  <span className="material-symbols-outlined text-sm">arrow_forward</span>
+                  <ArrowRight className="w-4 h-4" />
                 </Link>
               </div>
             </div>

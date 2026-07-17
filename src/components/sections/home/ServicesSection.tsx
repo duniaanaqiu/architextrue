@@ -3,7 +3,7 @@
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { StructuredData } from "@/components/shared/StructuredData";
-import { CheckCircle, ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -120,7 +120,7 @@ function ServiceCard({ service }: { service: typeof services[0] }) {
         <ul className="space-y-4 mb-stack-lg">
           {service.features.map((feature, index) => (
             <li key={index} className="flex items-center gap-3">
-              <CheckCircle className="text-tertiary-container h-5 w-5 flex-shrink-0" />
+              <Image src="/assets/images/layout/check3.svg" alt="Check" width={20} height={20} className="flex-shrink-0" />
               <span className="text-base font-body font-medium text-on-surface">
                 {feature}
               </span>

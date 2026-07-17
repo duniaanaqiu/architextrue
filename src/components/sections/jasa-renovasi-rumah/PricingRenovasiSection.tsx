@@ -1,6 +1,6 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { Button } from "@/components/ui/button";
-import { Calculator, ClipboardList, CheckCircle } from 'lucide-react';
 import { WHATSAPP_NUMBER } from '@/config/company';
 
 export function PricingRenovasiSection() {
@@ -25,7 +25,7 @@ export function PricingRenovasiSection() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
             <div className="bg-background rounded-2xl p-6 text-center border border-on-surface/5">
               <div className="w-12 h-12 bg-primary/5 rounded-full flex items-center justify-center mx-auto mb-4">
-                <ClipboardList className="w-6 h-6 text-primary" />
+                <Image src="/assets/images/layout/survey.svg" alt="Survei Lokasi" width={24} height={24} className="text-primary" />
               </div>
               <h3 className="font-semibold text-on-surface mb-2">Survei Lokasi</h3>
               <p className="text-sm text-on-surface-variant">Penilaian kondisi struktur dan pengukuran luasan area.</p>
@@ -33,7 +33,7 @@ export function PricingRenovasiSection() {
             
             <div className="bg-background rounded-2xl p-6 text-center border border-on-surface/5">
               <div className="w-12 h-12 bg-primary/5 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Calculator className="w-6 h-6 text-primary" />
+                <Image src="/assets/images/layout/rab.svg" alt="Perhitungan RAB" width={24} height={24} className="text-primary" />
               </div>
               <h3 className="font-semibold text-on-surface mb-2">Perhitungan RAB</h3>
               <p className="text-sm text-on-surface-variant">Rincian volume bongkaran, material, dan upah tenaga kerja.</p>
@@ -41,7 +41,7 @@ export function PricingRenovasiSection() {
             
             <div className="bg-background rounded-2xl p-6 text-center border border-on-surface/5">
               <div className="w-12 h-12 bg-primary/5 rounded-full flex items-center justify-center mx-auto mb-4">
-                <CheckCircle className="w-6 h-6 text-primary" />
+                <Image src="/assets/images/layout/pembayaran.svg" alt="Kesepakatan Harga" width={24} height={24} className="text-primary" />
               </div>
               <h3 className="font-semibold text-on-surface mb-2">Kesepakatan Harga</h3>
               <p className="text-sm text-on-surface-variant">Harga pasti yang mengikat di dalam kontrak kerja tertulis.</p>

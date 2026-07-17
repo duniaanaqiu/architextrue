@@ -1,23 +1,23 @@
-
+import Image from 'next/image';
 
 const benefits = [
   {
-    icon: "request_quote",
+    icon: "/assets/images/layout/transparansi.svg",
     title: "100% Transparansi RAB",
     description: "Tidak ada biaya tersembunyi. Semua material dan harga dibreakdown secara detail dalam Rencana Anggaran Biaya sebelum konstruksi dimulai."
   },
   {
-    icon: "verified",
+    icon: "/assets/images/layout/kualitas.svg",
     title: "Jaminan Kualitas Material",
     description: "Kami bekerja sama dengan supplier terpercaya. Apa yang tertulis di spesifikasi kontrak, itulah yang akan dipasang di rumah Anda."
   },
   {
-    icon: "engineering",
+    icon: "/assets/images/layout/pengawasan.svg",
     title: "Pengawasan Ketat Ahli",
     description: "Setiap tahap pembangunan diawasi oleh site manager dan engineer profesional untuk memastikan standar struktural terpenuhi."
   },
   {
-    icon: "gavel",
+    icon: "/assets/images/layout/garansi.svg",
     title: "Garansi Pemeliharaan",
     description: "Kami tidak lari setelah serah terima. Ada masa retensi (garansi) untuk memastikan bangunan sempurna tanpa cacat."
   }
@@ -39,8 +39,8 @@ export function BenefitSection() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {benefits.map((benefit, index) => (
             <div key={index} className="bg-surface-container p-8 rounded-2xl border border-on-surface/5 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:border-primary/20">
-              <div className="w-14 h-14 bg-primary/10 rounded-xl flex items-center justify-center mb-6 text-primary">
-                <span className="material-symbols-outlined text-3xl">{benefit.icon}</span>
+              <div className="w-14 h-14 bg-primary/10 rounded-xl flex items-center justify-center mb-6">
+                <Image src={benefit.icon} alt={benefit.title} width={32} height={32} className="text-primary" />
               </div>
               <h3 className="text-xl font-display font-medium text-on-surface mb-3">
                 {benefit.title}

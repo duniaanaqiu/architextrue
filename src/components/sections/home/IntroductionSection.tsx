@@ -41,7 +41,7 @@ export function IntroductionSection() {
           <div className="flex items-start gap-3">
             <div className="bg-tertiary-container/10 p-2 rounded-lg">
               <div className="h-8 w-8 bg-tertiary-container rounded-lg flex items-center justify-center">
-                <span className="text-on-tertiary-container font-bold">✓</span>
+                <Image src="/assets/images/layout/check2.svg" alt="Check" width={16} height={16} className="text-on-tertiary-container" />
               </div>
             </div>
             <div>
@@ -57,7 +57,7 @@ export function IntroductionSection() {
           <div className="flex items-start gap-3">
             <div className="bg-tertiary-container/10 p-2 rounded-lg">
               <div className="h-8 w-8 bg-tertiary-container rounded-lg flex items-center justify-center">
-                <span className="text-on-tertiary-container font-bold">✓</span>
+                <Image src="/assets/images/layout/check2.svg" alt="Check" width={16} height={16} className="text-on-tertiary-container" />
               </div>
             </div>
             <div>

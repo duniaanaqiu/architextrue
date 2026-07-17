@@ -1,4 +1,4 @@
-
+import Image from 'next/image';
 
 const scopes = [
   {
@@ -65,7 +65,7 @@ export function ScopeSection() {
               <ul className="space-y-3">
                 {scope.items.map((item, i) => (
                   <li key={i} className="flex items-start gap-3">
-                    <span className="material-symbols-outlined text-tertiary text-lg mt-0.5">check_circle</span>
+                    <Image src="/assets/images/layout/check1.svg" alt="Check" width={20} height={20} className="mt-0.5 flex-shrink-0" />
                     <span className="text-base font-body text-on-surface-variant">
                       {item}
                     </span>

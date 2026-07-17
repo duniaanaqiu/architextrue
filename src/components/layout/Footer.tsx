@@ -4,7 +4,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import { Phone, Mail, MapPin } from "lucide-react";
 import { WHATSAPP_NUMBER } from "@/config/company";
 
 interface FooterLink {
@@ -106,13 +105,13 @@ export function Footer() {
           </span>
           <div className="space-y-3">
             <div className="flex items-start gap-2">
-              <MapPin className="h-5 w-5 text-white mt-0.5 flex-shrink-0" />
+              <Image src="/assets/images/layout/map.svg" alt="Address" width={20} height={20} className="mt-0.5 flex-shrink-0" />
               <p className="font-body-md text-body-md text-primary-fixed-dim opacity-80">
                 {contactInfo.address}
               </p>
             </div>
             <div className="flex items-center gap-2">
-              <Mail className="h-5 w-5 text-white flex-shrink-0" />
+              <Image src="/assets/images/layout/mail.svg" alt="Email" width={20} height={20} className="flex-shrink-0" />
               <Link
                 href={`mailto:${contactInfo.email}`}
                 className="font-body-md text-body-md text-primary-fixed-dim opacity-80 hover:text-white hover:opacity-100"
@@ -121,7 +120,7 @@ export function Footer() {
               </Link>
             </div>
             <div className="flex items-center gap-2">
-              <Phone className="h-5 w-5 text-white flex-shrink-0" />
+              <Image src="/assets/images/layout/wa.svg" alt="WhatsApp" width={20} height={20} className="flex-shrink-0" />
               <Link
                 href={`https://wa.me/${WHATSAPP_NUMBER}`}
                 target="_blank"

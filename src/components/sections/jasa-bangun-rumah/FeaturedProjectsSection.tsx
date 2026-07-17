@@ -1,6 +1,6 @@
-
 import Image from 'next/image';
 import Link from 'next/link';
+import { ArrowRight } from 'lucide-react';
 
 const featuredProjects = [
   {
@@ -34,7 +34,7 @@ export function FeaturedProjectsSection() {
           </div>
           <Link href="/portfolio" className="text-primary hover:text-primary/80 font-body font-medium flex items-center gap-2 whitespace-nowrap">
             Lihat Semua Portfolio
-            <span className="material-symbols-outlined text-sm">arrow_forward</span>
+            <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
 
@@ -52,7 +52,7 @@ export function FeaturedProjectsSection() {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-80"></div>
                 <div className="absolute bottom-6 left-6 right-6">
                   <div className="flex items-center gap-2 text-white/90 mb-2">
-                    <span className="material-symbols-outlined text-sm">location_on</span>
+                    <Image src="/assets/images/layout/map.svg" alt="Location" width={16} height={16} />
                     <span className="text-sm font-body">{project.location}</span>
                   </div>
                   <h3 className="text-2xl font-display font-medium text-white mb-2">
