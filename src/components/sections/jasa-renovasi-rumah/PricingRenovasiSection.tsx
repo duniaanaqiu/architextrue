@@ -13,11 +13,11 @@ export function PricingRenovasiSection() {
               Transparansi Biaya
             </span>
           </div>
-          
+
           <h2 className="text-3xl md:text-5xl font-display font-semibold text-primary mb-6">
             RAB Detail, Tanpa Biaya Tersembunyi
           </h2>
-          
+
           <p className="text-lg md:text-xl font-body text-on-surface-variant mb-12 max-w-3xl mx-auto leading-relaxed">
             Berbeda dengan bangun baru yang bisa diestimasi per meter persegi, renovasi memiliki variabel yang sangat dinamis tergantung kondisi eksisting. Kami menolak sistem borongan buta demi melindungi anggaran Anda.
           </p>
@@ -30,18 +30,18 @@ export function PricingRenovasiSection() {
               <h3 className="font-semibold text-on-surface mb-2">Survei Lokasi</h3>
               <p className="text-sm text-on-surface-variant">Penilaian kondisi struktur dan pengukuran luasan area.</p>
             </div>
-            
+
             <div className="bg-background rounded-2xl p-6 text-center border border-on-surface/5">
               <div className="w-12 h-12 bg-primary/5 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Image src="/assets/images/layout/rab.svg" alt="Perhitungan RAB" width={24} height={24} className="text-primary" />
+                <Image src="/assets/images/layout/rab2.svg" alt="Perhitungan RAB" width={24} height={24} className="text-primary" />
               </div>
               <h3 className="font-semibold text-on-surface mb-2">Perhitungan RAB</h3>
               <p className="text-sm text-on-surface-variant">Rincian volume bongkaran, material, dan upah tenaga kerja.</p>
             </div>
-            
+
             <div className="bg-background rounded-2xl p-6 text-center border border-on-surface/5">
               <div className="w-12 h-12 bg-primary/5 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Image src="/assets/images/layout/pembayaran.svg" alt="Kesepakatan Harga" width={24} height={24} className="text-primary" />
+                <Image src="/assets/images/layout/price.svg" alt="Kesepakatan Harga" width={24} height={24} className="text-primary" />
               </div>
               <h3 className="font-semibold text-on-surface mb-2">Kesepakatan Harga</h3>
               <p className="text-sm text-on-surface-variant">Harga pasti yang mengikat di dalam kontrak kerja tertulis.</p>

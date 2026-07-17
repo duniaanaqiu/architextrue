@@ -14,7 +14,7 @@ const benefits = [
   {
     title: "RAB Pasti, Tanpa Kejutan",
     description: "Banyak pemborong sengaja menekan harga awal lalu menaikkannya di tengah proyek. Kami memberikan Rencana Anggaran Biaya (RAB) yang akurat setelah survei untuk menghindari over-budget.",
-    icon: "/assets/images/layout/rab.svg",
+    icon: "/assets/images/layout/rab1.svg",
   },
 ];
 
