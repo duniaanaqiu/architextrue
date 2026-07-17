@@ -1,11 +1,13 @@
 import { Metadata } from "next";
 import { HeroSection } from "@/components/sections/home/HeroSection";
 import { IntroductionSection } from "@/components/sections/home/IntroductionSection";
-import { ServicesSection } from "@/components/sections/home/ServicesSection";
-import { ProcessSection } from "@/components/sections/home/ProcessSection";
-import { TestimonialsSection } from "@/components/sections/home/TestimonialsSection";
-import { FAQSection } from "@/components/sections/shared/FAQSection";
-import { CTASection } from "@/components/sections/shared/CTASection";
+import dynamic from "next/dynamic";
+
+const ServicesSection = dynamic(() => import("@/components/sections/home/ServicesSection").then((mod) => mod.ServicesSection));
+const ProcessSection = dynamic(() => import("@/components/sections/home/ProcessSection").then((mod) => mod.ProcessSection));
+const TestimonialsSection = dynamic(() => import("@/components/sections/home/TestimonialsSection").then((mod) => mod.TestimonialsSection));
+const FAQSection = dynamic(() => import("@/components/sections/shared/FAQSection").then((mod) => mod.FAQSection));
+const CTASection = dynamic(() => import("@/components/sections/shared/CTASection").then((mod) => mod.CTASection));
 import { StructuredData } from "@/components/shared/StructuredData";
 import { generateMetadata, generateLocalBusinessSchema, generateBreadcrumbSchema, generateFAQSchema, generateWebPageSchema } from "@/lib/utils";
 import { faqHome } from "@/lib/data/faq";
