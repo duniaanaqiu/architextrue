@@ -17,6 +17,7 @@ interface PostProps {
   excerpt: string;
   featuredImage: string | null;
   publishedAt: Date | null;
+  createdAt: Date;
   readingTime: number;
   categories: Category[];
 }

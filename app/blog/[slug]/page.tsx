@@ -105,8 +105,9 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
     include: { categories: true }
   }) : [];
 
-  const formattedDate = post.publishedAt
-    ? new Intl.DateTimeFormat("id-ID", { day: "numeric", month: "long", year: "numeric" }).format(new Date(post.publishedAt))
+  const dateToUse = post.publishedAt || post.createdAt;
+  const formattedDate = dateToUse
+    ? new Intl.DateTimeFormat("id-ID", { day: "numeric", month: "long", year: "numeric" }).format(new Date(dateToUse))
     : "Baru saja";
 
   const breadcrumbSchema = generateBreadcrumbSchema([

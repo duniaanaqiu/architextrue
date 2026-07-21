@@ -15,6 +15,7 @@ interface PostProps {
   excerpt: string;
   featuredImage: string | null;
   publishedAt: Date | null;
+  createdAt: Date;
   readingTime: number;
   categories: Category[];
 }
@@ -24,12 +25,13 @@ interface BlogCardProps {
 }
 
 export function BlogCard({ post }: BlogCardProps) {
-  const formattedDate = post.publishedAt
+  const dateToUse = post.publishedAt || post.createdAt;
+  const formattedDate = dateToUse
     ? new Intl.DateTimeFormat("id-ID", {
         day: "numeric",
         month: "long",
         year: "numeric",
-      }).format(new Date(post.publishedAt))
+      }).format(new Date(dateToUse))
     : "Baru saja";
 
   return (
